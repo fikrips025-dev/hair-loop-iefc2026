@@ -1,0 +1,3430 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <meta name="theme-color" content="#1B365D" />
+  <meta name="description" content="HAIR-LOOP: Human-hair Adaptive Integrated Reverse-logistics & Low-cost Optimization Operational Platform — Tim PohanNeknik SMAN 2 Bondowoso (IEFC ITB 2026)" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="HAIR-LOOP" />
+  <title>HAIR-LOOP | Smart Reverse Logistics & Valuasi Limbah Rambut Kota Bandung — Tim PohanNeknik (IEFC ITB 2026)</title>
+
+  <!-- Inline PWA Web Manifest -->
+  <link rel="manifest" href='data:application/manifest+json,{"name":"HAIR-LOOP Smart Reverse Logistics Kota Bandung","short_name":"HAIR-LOOP","description":"Human-hair Adaptive Integrated Reverse-logistics & Low-cost Optimization Operational Platform - Tim PohanNeknik SMAN 2 Bondowoso","start_url":".","display":"standalone","background_color":"#F6F4EE","theme_color":"#1B365D","icons":[{"src":"data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%231B365D%22/><text x=%2250%22 y=%2265%22 font-size=%2246%22 text-anchor=%22middle%22 fill=%22%23F6F4EE%22 font-family=%22monospace%22 font-weight=%22bold%22>HL</text></svg>","sizes":"192x192","type":"image/svg+xml"}]}' />
+
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ivory: '#F6F4EE',
+            ivoryDark: '#EDE8DC',
+            borderWarm: '#E5DEC9',
+            denim: {
+              DEFAULT: '#1B365D',
+              dark: '#122440',
+              light: '#294C80',
+              subtle: '#EBF0F7'
+            },
+            emerald: {
+              DEFAULT: '#1E5631',
+              dark: '#143B21',
+              light: '#2A7544',
+              subtle: '#EAF3ED'
+            },
+            kraft: {
+              DEFAULT: '#8C5828',
+              dark: '#6B421D',
+              light: '#B07239',
+              subtle: '#F7EFE6'
+            },
+            amber: {
+              DEFAULT: '#D97706',
+              dark: '#B45309',
+              subtle: '#FEF3C7'
+            },
+            carbon: {
+              DEFAULT: '#181A1B',
+              muted: '#2C3033',
+              light: '#484E53'
+            },
+            crimson: {
+              DEFAULT: '#B91C1C',
+              subtle: '#FEE2E2'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          },
+          boxShadow: {
+            'card': '0 2px 10px rgba(27, 54, 93, 0.05), 0 1px 2px rgba(140, 88, 40, 0.06)',
+            'elevated': '0 12px 28px -6px rgba(27, 54, 93, 0.12), 0 4px 10px -2px rgba(24, 26, 27, 0.06)',
+            'phone': '0 25px 50px -12px rgba(24, 26, 27, 0.28), 0 0 0 10px #181A1B, 0 0 0 12px #8C5828'
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Leaflet.js CSS & JS CDN -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    :root {
+      --bg-ivory: #F6F4EE;
+      --surface-white: #FFFFFF;
+      --border-warm: #E5DEC9;
+      --brand-denim: #1B365D;
+      --brand-emerald: #1E5631;
+      --accent-kraft: #8C5828;
+      --accent-amber: #D97706;
+      --carbon-charcoal: #181A1B;
+    }
+
+    body {
+      background-color: var(--bg-ivory);
+      color: var(--carbon-charcoal);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Subtle Industrial Grid Background Pattern */
+    .bg-industrial-grid {
+      background-color: #F6F4EE;
+      background-image: 
+        linear-gradient(to right, rgba(229, 222, 201, 0.45) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(229, 222, 201, 0.45) 1px, transparent 1px);
+      background-size: 28px 28px;
+    }
+
+    /* Kraft Paper Texture Accent */
+    .kraft-pattern {
+      background-color: #F7EFE6;
+      background-image: radial-gradient(rgba(140, 88, 40, 0.12) 1px, transparent 0);
+      background-size: 12px 12px;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 7px;
+      height: 7px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #F6F4EE;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #C8BFA8;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #8C5828;
+    }
+
+    /* QR Scanner Laser Line Animation */
+    @keyframes scanLaser {
+      0% { top: 8%; opacity: 0.85; }
+      50% { top: 88%; opacity: 1; }
+      100% { top: 8%; opacity: 0.85; }
+    }
+    .scanner-laser {
+      position: absolute;
+      left: 6%;
+      right: 6%;
+      height: 2.5px;
+      background-color: #D97706;
+      box-shadow: 0 0 10px 2px rgba(217, 119, 6, 0.75);
+      animation: scanLaser 2.4s ease-in-out infinite;
+    }
+
+    /* Pulse ring for urgent map markers */
+    @keyframes pulseUrgent {
+      0% { transform: scale(1); opacity: 0.9; }
+      70% { transform: scale(2.1); opacity: 0; }
+      100% { transform: scale(2.1); opacity: 0; }
+    }
+    .marker-pulse-ring {
+      position: absolute;
+      inset: -4px;
+      border-radius: 9999px;
+      background-color: rgba(185, 28, 28, 0.55);
+      animation: pulseUrgent 1.8s infinite;
+      pointer-events: none;
+    }
+
+    /* Custom Range Slider */
+    input[type="range"].industrial-slider {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 8px;
+      background: #E5DEC9;
+      border-radius: 6px;
+      outline: none;
+    }
+    input[type="range"].industrial-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #1E5631;
+      border: 3px solid #FFFFFF;
+      box-shadow: 0 2px 6px rgba(24, 26, 27, 0.3);
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    }
+    input[type="range"].industrial-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.12);
+      background: #1B365D;
+    }
+
+    /* Leaflet custom popup styling */
+    .leaflet-popup-content-wrapper {
+      background: #FFFFFF !important;
+      color: #181A1B !important;
+      border: 1px solid #E5DEC9 !important;
+      border-radius: 10px !important;
+      box-shadow: 0 10px 25px rgba(27, 54, 93, 0.15) !important;
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+      padding: 2px !important;
+    }
+    .leaflet-popup-content {
+      margin: 10px 12px !important;
+      line-height: 1.45 !important;
+    }
+    .leaflet-container {
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+      z-index: 10 !important;
+    }
+  </style>
+</head>
+<body class="bg-industrial-grid min-h-screen flex flex-col selection:bg-denim selection:text-white">
+
+  <!-- ===================================================================== -->
+  <!-- STICKY TOP NAVBAR (ROLE SWITCHER & SYSTEM IDENTITY)                   -->
+  <!-- ===================================================================== -->
+  <header class="sticky top-0 z-50 bg-denim text-white border-b-2 border-kraft shadow-md">
+    <div class="max-w-[1440px] mx-auto px-3 sm:px-6 py-2.5 flex flex-col lg:flex-row items-center justify-between gap-3">
+      
+      <!-- Left: Brand Logo & Team Identity -->
+      <div class="flex items-center justify-between w-full lg:w-auto gap-3">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-lg bg-kraft flex items-center justify-center border border-amber/60 shadow-inner shrink-0">
+            <i data-lucide="recycle" class="w-6 h-6 text-ivory"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="font-extrabold tracking-tight text-lg sm:text-xl text-ivory">HAIR-LOOP</span>
+              <span class="hidden sm:inline-block text-ivory/40">|</span>
+              <span class="text-xs sm:text-sm font-medium text-ivory/90 italic">Smart Reverse Logistics Kota Bandung</span>
+            </div>
+            <div class="flex items-center gap-2 mt-0.5">
+              <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-mono font-semibold bg-amber text-carbon">
+                <i data-lucide="award" class="w-3 h-3"></i> Tim PohanNeknik — SMAN 2 Bondowoso
+              </span>
+              <span class="hidden md:inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-mono bg-white/10 text-ivory/90 border border-white/15">
+                IEFC Teknik Industri ITB 2026
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mobile quick status pill -->
+        <button onclick="openSystemSpecModal()" class="lg:hidden px-2.5 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-xs font-mono flex items-center gap-1.5 border border-white/15">
+          <i data-lucide="book-open" class="w-3.5 h-3.5 text-amber"></i>
+          <span>Rumus & Referensi</span>
+        </button>
+      </div>
+
+      <!-- Center/Right: 3-Mode Real-Time Role Switcher -->
+      <div class="flex items-center gap-1.5 sm:gap-2 bg-denim-dark p-1.5 rounded-xl border border-white/15 w-full lg:w-auto justify-center overflow-x-auto">
+        <button id="nav-btn-overview" onclick="switchMode('overview')" class="role-tab-btn flex items-center gap-2 px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all whitespace-nowrap bg-amber text-carbon shadow">
+          <i data-lucide="layout-grid" class="w-4 h-4 shrink-0"></i>
+          <span>1. Ringkasan & Login (Overview)</span>
+        </button>
+
+        <button id="nav-btn-barber" onclick="switchMode('barber')" class="role-tab-btn flex items-center gap-2 px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all whitespace-nowrap text-ivory/85 hover:text-white hover:bg-white/10">
+          <i data-lucide="smartphone" class="w-4 h-4 shrink-0"></i>
+          <span>2. Mode HP Barber (Mitra PWA)</span>
+          <span class="px-1.5 py-0.5 text-[10px] font-mono rounded bg-kraft text-white">#042</span>
+        </button>
+
+        <button id="nav-btn-tower" onclick="switchMode('tower')" class="role-tab-btn relative flex items-center gap-2 px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all whitespace-nowrap text-ivory/85 hover:text-white hover:bg-white/10">
+          <i data-lucide="radar" class="w-4 h-4 shrink-0"></i>
+          <span>3. Mode Control Tower (DLH/TPS 3R)</span>
+          <span id="tower-notif-badge" class="px-1.5 py-0.5 text-[10px] font-mono font-bold rounded-full bg-crimson text-white">6 Siap</span>
+        </button>
+      </div>
+
+      <!-- Far Right: Reference & Presentation Info (Desktop) -->
+      <div class="hidden lg:flex items-center gap-2">
+        <div class="text-right font-mono text-[11px] leading-tight text-ivory/80 pr-2 border-r border-white/15">
+          <div>LOKUS: BANDUNG KOTA</div>
+          <div class="text-amber font-semibold">721 Klaster / 3.037 Unit</div>
+        </div>
+        <button onclick="openSystemSpecModal()" class="px-3 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-xs font-semibold flex items-center gap-1.5 border border-white/15 transition">
+          <i data-lucide="file-Spreadsheet" class="w-4 h-4 text-amber"></i>
+          <span>Parameter Ilmiah</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Global Toast Notification Banner -->
+  <div id="global-toast" class="fixed bottom-5 right-5 z-[100] hidden max-w-md bg-carbon text-white border-l-4 border-amber px-4 py-3.5 rounded-xl shadow-2xl flex items-start gap-3 transition-all duration-300">
+    <div id="global-toast-icon" class="p-1.5 rounded-lg bg-amber/20 text-amber shrink-0 mt-0.5">
+      <i data-lucide="check-circle-2" class="w-5 h-5"></i>
+    </div>
+    <div class="flex-1 text-xs sm:text-sm">
+      <div id="global-toast-title" class="font-bold text-ivory">Status Sistem Diperbarui</div>
+      <div id="global-toast-msg" class="text-ivory/80 mt-0.5 leading-relaxed">Data sinkron antara PWA Kapster & Control Tower.</div>
+    </div>
+    <button onclick="hideToast()" class="text-ivory/60 hover:text-white">
+      <i data-lucide="x" class="w-4 h-4"></i>
+    </button>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- MAIN CONTENT CONTAINER                                                -->
+  <!-- ===================================================================== -->
+  <main class="flex-1 max-w-[1440px] w-full mx-auto px-3 sm:px-6 py-6">
+
+    <!-- =================================================================== -->
+    <!-- MODE 1: RINGKASAN SISTEM & GERBANG LOGIN ("Overview & Auth")        -->
+    <!-- =================================================================== -->
+    <section id="view-overview" class="space-y-6">
+      
+      <!-- Hero Banner & Executive Value Proposition -->
+      <div class="bg-white rounded-2xl border border-borderWarm shadow-card overflow-hidden">
+        <div class="bg-denim px-6 py-5 border-b border-borderWarm flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-emerald text-white text-xs font-mono font-semibold mb-2">
+              <i data-lucide="cpu" class="w-3.5 h-3.5"></i>
+              PROTOTIPE PWA & DECISION SUPPORT SYSTEM (DSS) — IEFC ITB 2026
+            </div>
+            <h1 class="text-xl sm:text-2xl md:text-3xl font-extrabold text-ivory tracking-tight">
+              HAIR-LOOP: Integrasi Reverse Logistics Limbah Rambut & Hilirisasi Karbon Berpori
+            </h1>
+            <p class="text-ivory/85 text-xs sm:text-sm mt-1 max-w-4xl leading-relaxed">
+              Platform operasional berbiaya rendah yang menghubungkan <strong>721 Barbershop Klaster Inti</strong> (Lengkong, Coblong, Bandung Wetan) hingga <strong>3.037 Barbershop se-Kota Bandung</strong> dengan Micro-Hub TPS 3R menggunakan pemindaian QR tanpa timbangan, armada roda tiga ramah lingkungan, algoritma <em>Dynamic CVRP</em>, serta pirolisis <em>N,S Co-Doped Porous Carbon</em> untuk elektroda superkapasitor.
+            </p>
+          </div>
+          <div class="shrink-0 bg-denim-dark/90 border border-white/15 rounded-xl p-3.5 text-ivory font-mono text-xs space-y-1.5">
+            <div class="text-amber font-bold flex items-center gap-1.5">
+              <i data-lucide="function-square" class="w-4 h-4"></i> Fungsi Objektif Multi-Kriteria:
+            </div>
+            <div class="bg-black/30 px-3 py-1.5 rounded text-sm font-bold tracking-wider text-center border border-white/10">
+              min Z = αD + βT + γC + δE
+            </div>
+            <div class="text-[11px] text-ivory/75 grid grid-cols-2 gap-x-3 gap-y-0.5 pt-0.5">
+              <span>• D: Jarak Tempuh (km)</span>
+              <span>• T: Waktu Rute (jam)</span>
+              <span>• C: Biaya BBM & Insentif</span>
+              <span>• E: Emisi CO₂ (kg)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ONE-CLICK DEMO LOGIN GATEWAY -->
+        <div class="p-6 bg-ivory/60">
+          <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
+            <div>
+              <h2 class="text-base sm:text-lg font-extrabold text-denim flex items-center gap-2">
+                <i data-lucide="key-round" class="w-5 h-5 text-kraft"></i>
+                Gerbang Autentikasi Simulasi Peran (One-Click Demo Login)
+              </h2>
+              <p class="text-xs sm:text-sm text-carbon-light">
+                Pilih salah satu peran di bawah ini untuk menguji alur kerja nyata dari sisi hulu (Kapster Barbershop) maupun sisi kendali logistik & hilirisasi (Dispatcher Control Tower).
+              </p>
+            </div>
+            <span class="px-3 py-1 rounded-full bg-emerald-subtle text-emerald font-mono text-xs font-bold border border-emerald/30 flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-emerald animate-ping"></span> Sinkronisasi State Real-Time Aktif
+            </span>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+            <!-- Login Card 1: Mitra Barbershop #042 -->
+            <div class="bg-white rounded-xl border-2 border-kraft/40 hover:border-kraft transition-all shadow-card hover:shadow-elevated p-5 flex flex-col justify-between relative overflow-hidden group">
+              <div class="absolute top-0 right-0 bg-kraft text-white font-mono text-[11px] font-bold px-3 py-1 rounded-bl-lg">
+                HULU • FRONTEND MITRA PWA
+              </div>
+              <div>
+                <div class="flex items-start gap-4">
+                  <div class="w-14 h-14 rounded-xl bg-kraft-subtle border border-kraft/30 flex items-center justify-center text-kraft shrink-0">
+                    <i data-lucide="scissors" class="w-7 h-7"></i>
+                  </div>
+                  <div class="pr-16">
+                    <span class="text-xs font-mono font-bold text-kraft uppercase tracking-wider">Akses Kapster / Pemilik Barbershop</span>
+                    <h3 class="text-lg font-extrabold text-carbon mt-0.5">Mitra Barbershop #042 — Barber Hub Dago</h3>
+                    <p class="text-xs font-mono text-carbon-light mt-0.5">ID: BDG-CBL-042 • Jl. Ir. H. Juanda, Kec. Coblong (4 Kursi Cukur)</p>
+                  </div>
+                </div>
+
+                <div class="mt-4 grid grid-cols-3 gap-2 bg-ivory p-3 rounded-lg border border-borderWarm text-xs">
+                  <div>
+                    <div class="text-carbon-light text-[11px]">ID Karung Aktif</div>
+                    <div class="font-mono font-bold text-denim">QR-HL-2026-089</div>
+                  </div>
+                  <div>
+                    <div class="text-carbon-light text-[11px]">Timbulan Harian</div>
+                    <div class="font-mono font-bold text-emerald">0,142 kg/hari</div>
+                  </div>
+                  <div>
+                    <div class="text-carbon-light text-[11px]">Saldo Green Poin</div>
+                    <div class="font-mono font-bold text-amber-dark">1.240 Poin</div>
+                  </div>
+                </div>
+
+                <ul class="mt-3.5 space-y-1.5 text-xs text-carbon-light">
+                  <li class="flex items-center gap-2">
+                    <i data-lucide="check" class="w-4 h-4 text-emerald shrink-0"></i>
+                    <span>Pelaporan kepenuhan karung <strong>tanpa timbangan digital</strong> (estimasi volumetrik 25%–100%).</span>
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <i data-lucide="check" class="w-4 h-4 text-emerald shrink-0"></i>
+                    <span>Detektor kontaminan AI visual (kemurnian 98,4%) & integrasi <strong>WhatsApp Webhook Zero-Install</strong>.</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="mt-5 pt-4 border-t border-borderWarm flex items-center justify-between gap-3">
+                <span class="text-[11px] font-mono text-carbon-light">Status: <strong class="text-emerald">Mitra Green Barber Gold</strong></span>
+                <button onclick="demoLogin('barber')" class="px-4 py-2.5 rounded-lg bg-kraft hover:bg-kraft-dark text-white font-bold text-xs sm:text-sm flex items-center gap-2 shadow transition group-hover:translate-x-0.5">
+                  <span>Masuk sebagai Mitra #042</span>
+                  <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Login Card 2: Dispatcher Control Tower -->
+            <div class="bg-white rounded-xl border-2 border-denim/40 hover:border-denim transition-all shadow-card hover:shadow-elevated p-5 flex flex-col justify-between relative overflow-hidden group">
+              <div class="absolute top-0 right-0 bg-denim text-white font-mono text-[11px] font-bold px-3 py-1 rounded-bl-lg">
+                MIDSTREAM & HILIR • CONTROL TOWER
+              </div>
+              <div>
+                <div class="flex items-start gap-4">
+                  <div class="w-14 h-14 rounded-xl bg-denim-subtle border border-denim/30 flex items-center justify-center text-denim shrink-0">
+                    <i data-lucide="map-pinned" class="w-7 h-7"></i>
+                  </div>
+                  <div class="pr-20">
+                    <span class="text-xs font-mono font-bold text-denim uppercase tracking-wider">Akses Pengelola DLH / Koperasi TPS 3R</span>
+                    <h3 class="text-lg font-extrabold text-carbon mt-0.5">Dispatcher Control Tower — TPS 3R Saling Asih</h3>
+                    <p class="text-xs font-mono text-carbon-light mt-0.5">Konsolidasi Klaster Coblong, Lengkong & Bandung Wetan (721 Unit)</p>
+                  </div>
+                </div>
+
+                <div class="mt-4 grid grid-cols-3 gap-2 bg-ivory p-3 rounded-lg border border-borderWarm text-xs">
+                  <div>
+                    <div class="text-carbon-light text-[11px]">Titik Siap Jemput</div>
+                    <div class="font-mono font-bold text-crimson" id="overview-urgent-count">6 Titik (≥80%)</div>
+                  </div>
+                  <div>
+                    <div class="text-carbon-light text-[11px]">Armada Aktif</div>
+                    <div class="font-mono font-bold text-denim">Viar Karya 150L</div>
+                  </div>
+                  <div>
+                    <div class="text-carbon-light text-[11px]">Output Karbon</div>
+                    <div class="font-mono font-bold text-emerald">507,45 kg/bln</div>
+                  </div>
+                </div>
+
+                <ul class="mt-3.5 space-y-1.5 text-xs text-carbon-light">
+                  <li class="flex items-center gap-2">
+                    <i data-lucide="check" class="w-4 h-4 text-denim shrink-0"></i>
+                    <span>Peta GIS Leaflet interaktif 15 sampel barbershop + solver rute <strong>Dynamic CVRP</strong>.</span>
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <i data-lucide="check" class="w-4 h-4 text-denim shrink-0"></i>
+                    <span>Simulator komparasi emisi Skenario A/B/C, <em>Smart Schedule</em> Lebaran, & konversi <em>Porous Carbon</em>.</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="mt-5 pt-4 border-t border-borderWarm flex items-center justify-between gap-3">
+                <span class="text-[11px] font-mono text-carbon-light">Otoritas: <strong class="text-denim">Supervisor Operasional GIS</strong></span>
+                <button onclick="demoLogin('tower')" class="px-4 py-2.5 rounded-lg bg-denim hover:bg-denim-dark text-white font-bold text-xs sm:text-sm flex items-center gap-2 shadow transition group-hover:translate-x-0.5">
+                  <span>Buka Control Tower GIS</span>
+                  <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4 EXECUTIVE OVERVIEW CARDS (FAKTA KUNCI ESAI) -->
+      <div>
+        <div class="flex items-center justify-between mb-3">
+          <h2 class="text-base sm:text-lg font-extrabold text-denim flex items-center gap-2">
+            <i data-lucide="bar-chart-3" class="w-5 h-5 text-emerald"></i>
+            4 Parameter Kunci & Landasan Empiris Sistem HAIR-LOOP
+          </h2>
+          <span class="text-xs font-mono text-carbon-light">Sumber: Naskah KTI IEFC ITB 2026 — Tim PohanNeknik</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+          <!-- Card 1: Populasi Klaster Inti -->
+          <div class="bg-white rounded-xl border border-borderWarm p-5 shadow-card flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="px-2.5 py-1 rounded bg-denim-subtle text-denim font-mono text-xs font-bold">01 • POPULASI & LOKUS</span>
+                <i data-lucide="store" class="w-5 h-5 text-denim"></i>
+              </div>
+              <div class="mt-3 flex items-baseline gap-2">
+                <span class="text-3xl font-extrabold font-mono text-denim">721</span>
+                <span class="text-xs font-semibold text-carbon-light">Unit Klaster Inti</span>
+              </div>
+              <div class="text-xs font-mono text-kraft font-semibold mt-0.5">
+                Dari 3.037 Barbershop se-Kota Bandung (23,74%)
+              </div>
+              <p class="text-xs text-carbon-light mt-2.5 leading-relaxed">
+                Konsentrasi tertinggi berada di 3 kecamatan pusat aktivitas komersial dan mahasiswa yang menjadi lokus percontohan fase pertama:
+              </p>
+            </div>
+            <div class="mt-3 pt-3 border-t border-borderWarm space-y-1.5 font-mono text-xs">
+              <div class="flex justify-between">
+                <span class="text-carbon-light">• Kec. Lengkong:</span>
+                <span class="font-bold text-denim">322 unit (44,66%)</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-carbon-light">• Kec. Coblong:</span>
+                <span class="font-bold text-denim">202 unit (28,02%)</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-carbon-light">• Kec. Bandung Wetan:</span>
+                <span class="font-bold text-denim">197 unit (27,32%)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2: Timbulan & Paradoks Volume -->
+          <div class="bg-white rounded-xl border border-borderWarm p-5 shadow-card flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="px-2.5 py-1 rounded bg-kraft-subtle text-kraft font-mono text-xs font-bold">02 • PARADOKS VOLUME</span>
+                <i data-lucide="package-open" class="w-5 h-5 text-kraft"></i>
+              </div>
+              <div class="mt-3 flex items-baseline gap-2">
+                <span class="text-3xl font-extrabold font-mono text-kraft">99,50</span>
+                <span class="text-xs font-semibold text-carbon-light">kg/hari (2.985 kg/bln)</span>
+              </div>
+              <div class="text-xs font-mono text-amber-dark font-semibold mt-0.5">
+                Densitas Curah Rendah: 10,499 kg/m³
+              </div>
+              <p class="text-xs text-carbon-light mt-2.5 leading-relaxed">
+                Rambut manusia bersifat ringan namun sangat mekar (<em>bulky</em>), memicu inefisiensi kargo jika diangkut tanpa pemadatan:
+              </p>
+            </div>
+            <div class="mt-3 pt-3 border-t border-borderWarm space-y-1.5 font-mono text-xs">
+              <div class="flex justify-between">
+                <span class="text-carbon-light">• Volume Lepas Harian:</span>
+                <span class="font-bold text-crimson">9,48 m³/hari</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-carbon-light">• Pasca Hydraulic Baling:</span>
+                <span class="font-bold text-emerald">≤ 3,60 m³/hari (-62%)</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-carbon-light">• Siklus Penuh Karung:</span>
+                <span class="font-bold text-carbon">22 – 30 Hari/Unit</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3: Efisiensi Logistik HAIR-LOOP -->
+          <div class="bg-white rounded-xl border border-borderWarm p-5 shadow-card flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="px-2.5 py-1 rounded bg-emerald-subtle text-emerald font-mono text-xs font-bold">03 • DEKARBONISASI RUTE</span>
+                <i data-lucide="truck" class="w-5 h-5 text-emerald"></i>
+              </div>
+              <div class="mt-3 flex items-baseline gap-2">
+                <span class="text-2xl sm:text-3xl font-extrabold font-mono text-emerald">82,04–84,23%</span>
+              </div>
+              <div class="text-xs font-mono text-emerald font-semibold mt-0.5">
+                Reduksi Emisi CO₂ vs Truk Solar Konvensional
+              </div>
+              <p class="text-xs text-carbon-light mt-2.5 leading-relaxed">
+                Kombinasi substitusi armada motor roda tiga (0,070 L/km) dan algoritma <em>Dynamic CVRP</em> berbasis ambang batas kepenuhan ≥80%:
+              </p>
+            </div>
+            <div class="mt-3 pt-3 border-t border-borderWarm space-y-1.5 font-mono text-xs">
+              <div class="flex justify-between">
+                <span class="text-carbon-light">• Baseline Truk Solar:</span>
+                <span class="font-bold text-crimson">1.436,40 kg CO₂/bln</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-carbon-light">• Roda Tiga Statis:</span>
+                <span class="font-bold text-amber-dark">288,54 kg CO₂/bln</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-carbon-light">• HAIR-LOOP CVRP:</span>
+                <span class="font-bold text-emerald">226,48–257,98 kg CO₂</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 4: Output Hilirisasi Material -->
+          <div class="bg-carbon text-ivory rounded-xl border border-carbon-muted p-5 shadow-card flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="px-2.5 py-1 rounded bg-amber text-carbon font-mono text-xs font-bold">04 • ADVANCED MATERIAL</span>
+                <i data-lucide="battery-charging" class="w-5 h-5 text-amber"></i>
+              </div>
+              <div class="mt-3 flex items-baseline gap-2">
+                <span class="text-3xl font-extrabold font-mono text-amber">507,45</span>
+                <span class="text-xs font-semibold text-ivory/80">kg/bulan</span>
+              </div>
+              <div class="text-xs font-mono text-ivory/90 font-semibold mt-0.5">
+                N,S Co-Doped Porous Carbon (Yield 17%)
+              </div>
+              <p class="text-xs text-ivory/75 mt-2.5 leading-relaxed">
+                Pirolisis & aktivasi KOH (700–900 °C) mengubah keratin kaya Nitrogen & Sulfur menjadi karbon berpori elektroda superkapasitor:
+              </p>
+            </div>
+            <div class="mt-3 pt-3 border-t border-white/15 space-y-1.5 font-mono text-xs">
+              <div class="flex justify-between">
+                <span class="text-ivory/70">• Luas Permukaan BET:</span>
+                <span class="font-bold text-amber">1.466–2.957 m²/g</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-ivory/70">• Energi Spesifik:</span>
+                <span class="font-bold text-ivory">19,49–27,05 kWh/bln</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-ivory/70">• Siklus Hidup (10k):</span>
+                <span class="font-bold text-emerald-300">126,69–270,50 MWh</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Architecture Diagram / End-to-End Reverse Supply Chain Blueprint -->
+      <div class="bg-white rounded-2xl border border-borderWarm p-6 shadow-card">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-borderWarm">
+          <div>
+            <h3 class="text-base font-extrabold text-denim flex items-center gap-2">
+              <i data-lucide="git-merge" class="w-5 h-5 text-kraft"></i>
+              Arsitektur Rantai Pasok Balik Terintegrasi (End-to-End Closed-Loop System)
+            </h3>
+            <p class="text-xs text-carbon-light">
+              Menjembatani gap pengumpulan skala mikro di barbershop hingga konversi material maju berdensitas nilai ekonomi tinggi.
+            </p>
+          </div>
+          <span class="text-xs font-mono px-2.5 py-1 rounded bg-ivory border border-borderWarm text-denim font-semibold">
+            Verma et al. (2022) • Utamima et al. (2026) • Maciel et al. (2025)
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4">
+          <div class="p-4 rounded-xl bg-ivory border border-borderWarm relative">
+            <div class="text-[11px] font-mono font-bold text-kraft uppercase">Tahap 1 • Hulu (In-Store)</div>
+            <div class="font-bold text-sm text-carbon mt-1">Akumulasi Karung Breathable QR</div>
+            <p class="text-xs text-carbon-light mt-1.5 leading-relaxed">
+              Kapster membuang potongan rambut kering ke karung berpori (mencegah anaerobik/bau). Saat mencapai ≥80% (~3,0 kg dalam 22–30 hari), kapster memindai QR via PWA atau WhatsApp Webhook.
+            </p>
+          </div>
+          <div class="p-4 rounded-xl bg-ivory border border-borderWarm relative">
+            <div class="text-[11px] font-mono font-bold text-denim uppercase">Tahap 2 • Verifikasi AI & GPS</div>
+            <div class="font-bold text-sm text-carbon mt-1">Filter Kontaminan & Geotagging</div>
+            <p class="text-xs text-carbon-light mt-1.5 leading-relaxed">
+              Detektor visual memvalidasi kemurnian rambut (bebas tisu, silet, plastik) dan algoritma Haversine memastikan lokasi laporan ≤50 m dari titik koordinat barbershop terdaftar.
+            </p>
+          </div>
+          <div class="p-4 rounded-xl bg-ivory border border-borderWarm relative">
+            <div class="text-[11px] font-mono font-bold text-emerald uppercase">Tahap 3 • Midstream (TPS 3R)</div>
+            <div class="font-bold text-sm text-carbon mt-1">Dynamic CVRP & Hydraulic Baling</div>
+            <p class="text-xs text-carbon-light mt-1.5 leading-relaxed">
+              Motor roda tiga Viar Karya 150L menjemput hanya titik berstatus Merah (≥80%). Di Micro-Hub TPS 3R, rambut dipadatkan dengan <em>Hydraulic Baler</em> (reduksi volume ≥62%).
+            </p>
+          </div>
+          <div class="p-4 rounded-xl bg-ivory border border-borderWarm relative">
+            <div class="text-[11px] font-mono font-bold text-carbon uppercase">Tahap 4 • Hilir (B2B Industri)</div>
+            <div class="font-bold text-sm text-carbon mt-1">Pirolisis N,S Porous Carbon</div>
+            <p class="text-xs text-carbon-light mt-1.5 leading-relaxed">
+              Karbonisasi & aktivasi kimia KOH pada 700–900 °C menghasilkan 507,45 kg/bln karbon aktif berpori tinggi (1.466–2.957 m²/g) untuk produsen sel superkapasitor.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- MODE 2: MODE HP BARBER (MITRA BARBERSHOP PWA)                       -->
+    <!-- =================================================================== -->
+    <section id="view-barber" class="hidden">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        
+        <!-- Left Column (Desktop Context & Judge Testing Guide) -->
+        <div class="lg:col-span-4 space-y-4 order-2 lg:order-1">
+          <div class="bg-white rounded-2xl border border-borderWarm p-5 shadow-card">
+            <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-kraft-subtle text-kraft font-mono text-xs font-bold mb-2">
+              <i data-lucide="smartphone" class="w-3.5 h-3.5"></i> PANDUAN SIMULASI DEWAN JURI
+            </div>
+            <h2 class="text-lg font-extrabold text-denim">Simulasi Antarmuka Mitra Kapster (PWA)</h2>
+            <p class="text-xs text-carbon-light mt-1 leading-relaxed">
+              Dirancang khusus untuk kapster barbershop dengan prinsip <strong>Zero-Scale Burden</strong> (tanpa timbangan digital di toko) dan <strong>Dual-Channel Reporting</strong> (PWA Interaktif & WhatsApp Webhook).
+            </p>
+
+            <div class="mt-4 space-y-2.5 text-xs">
+              <div class="p-3 rounded-xl bg-ivory border border-borderWarm">
+                <div class="font-bold text-denim flex items-center gap-1.5">
+                  <span class="w-5 h-5 rounded-full bg-denim text-white font-mono text-[11px] flex items-center justify-center">1</span>
+                  Uji Pindai & Ambang Batas CVRP (Tab 2)
+                </div>
+                <p class="text-carbon-light mt-1">
+                  Buka tab <strong>Pindai</strong>, klik tombol tingkat keterisian <code>80%</code> atau <code>100%</code>. Perhatikan indikator langsung berubah merah menyala <strong>SIAP JEMPUT</strong>.
+                </p>
+              </div>
+
+              <div class="p-3 rounded-xl bg-ivory border border-borderWarm">
+                <div class="font-bold text-denim flex items-center gap-1.5">
+                  <span class="w-5 h-5 rounded-full bg-denim text-white font-mono text-[11px] flex items-center justify-center">2</span>
+                  Uji Detektor Kontaminan AI Visual (Tab 2)
+                </div>
+                <p class="text-carbon-light mt-1">
+                  Klik tombol <strong>"Ambil Foto Permukaan Karung"</strong> untuk memicu pemeriksaan kemurnian serat rambut kering (98,4% bebas tisu/plastik).
+                </p>
+              </div>
+
+              <div class="p-3 rounded-xl bg-ivory border border-borderWarm">
+                <div class="font-bold text-denim flex items-center gap-1.5">
+                  <span class="w-5 h-5 rounded-full bg-denim text-white font-mono text-[11px] flex items-center justify-center">3</span>
+                  Sinkronisasi Langsung ke Control Tower
+                </div>
+                <p class="text-carbon-light mt-1">
+                  Klik <strong>"Kirim Permintaan Jemput"</strong>. Laporan otomatis masuk ke Tabel Verifikasi & Peta GIS di <strong>Mode Control Tower</strong>!
+                </p>
+              </div>
+            </div>
+
+            <!-- Quick Jump Buttons for Judges -->
+            <div class="mt-4 pt-4 border-t border-borderWarm flex flex-wrap gap-2">
+              <button onclick="switchBarberTab('scan')" class="px-3 py-1.5 rounded-lg bg-kraft text-white text-xs font-bold hover:bg-kraft-dark transition">
+                Lompat ke Tab Pindai QR
+              </button>
+              <button onclick="openWaModal()" class="px-3 py-1.5 rounded-lg bg-emerald text-white text-xs font-bold hover:bg-emerald-dark transition">
+                Lihat Format WA Webhook
+              </button>
+              <button onclick="switchMode('tower')" class="px-3 py-1.5 rounded-lg bg-denim text-white text-xs font-bold hover:bg-denim-dark transition">
+                Cek di Control Tower →
+              </button>
+            </div>
+          </div>
+
+          <!-- Technical Specs of Breathable Sack -->
+          <div class="bg-white rounded-2xl border border-borderWarm p-5 shadow-card space-y-2.5">
+            <h3 class="text-sm font-extrabold text-kraft flex items-center gap-2">
+              <i data-lucide="shield-check" class="w-4 h-4"></i>
+              Spesifikasi Karung Breathable HAIR-LOOP
+            </h3>
+            <div class="grid grid-cols-2 gap-2 font-mono text-xs">
+              <div class="p-2.5 rounded-lg bg-ivory border border-borderWarm">
+                <div class="text-[10px] text-carbon-light">KAPASITAS PENUH</div>
+                <div class="font-bold text-carbon">3,5 – 4,0 kg (100%)</div>
+              </div>
+              <div class="p-2.5 rounded-lg bg-ivory border border-borderWarm">
+                <div class="text-[10px] text-carbon-light">THRESHOLD JEMPUT</div>
+                <div class="font-bold text-crimson">≥ 80% (~3,0 kg)</div>
+              </div>
+              <div class="p-2.5 rounded-lg bg-ivory border border-borderWarm">
+                <div class="text-[10px] text-carbon-light">SIKLUS AKUMULASI</div>
+                <div class="font-bold text-denim">22 – 30 Hari</div>
+              </div>
+              <div class="p-2.5 rounded-lg bg-ivory border border-borderWarm">
+                <div class="text-[10px] text-carbon-light">MATERIAL KARUNG</div>
+                <div class="font-bold text-emerald">Woven Poly-Kraft</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Center/Right Column: SMARTPHONE FRAME -->
+        <div class="lg:col-span-8 flex justify-center order-1 lg:order-2">
+          <div class="w-full max-w-[420px] bg-ivory rounded-[38px] shadow-phone border-4 border-carbon overflow-hidden flex flex-col h-[810px] relative">
+            
+            <!-- Smartphone Top Notch & Status Bar -->
+            <div class="bg-denim-dark text-ivory px-6 pt-2.5 pb-2 flex items-center justify-between text-[11px] font-mono select-none shrink-0">
+              <span id="phone-clock">09:42 WIB</span>
+              <div class="w-24 h-4 bg-carbon rounded-full mx-auto flex items-center justify-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-emerald"></span>
+                <span class="w-8 h-1 rounded-full bg-white/20"></span>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <span>5G</span>
+                <i data-lucide="wifi" class="w-3.5 h-3.5"></i>
+                <i data-lucide="battery-full" class="w-4 h-4 text-amber"></i>
+              </div>
+            </div>
+
+            <!-- App Top Header inside Smartphone -->
+            <div class="bg-denim text-white px-4 py-3 flex items-center justify-between border-b border-kraft/50 shrink-0">
+              <div class="flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-lg bg-kraft flex items-center justify-center font-mono font-bold text-xs border border-amber/60">
+                  HL
+                </div>
+                <div>
+                  <div class="text-xs font-extrabold tracking-wide flex items-center gap-1.5">
+                    <span>HAIR-LOOP MITRA</span>
+                    <span class="px-1.5 py-0.2 bg-emerald text-[9px] font-mono rounded">PWA v2.6</span>
+                  </div>
+                  <div class="text-[10px] font-mono text-ivory/80">Barber Hub Dago • ID: BDG-CBL-042</div>
+                </div>
+              </div>
+              <div class="text-right">
+                <div class="text-[10px] text-ivory/75">Saldo Insentif</div>
+                <div class="text-xs font-mono font-bold text-amber" id="phone-header-points">1.240 Poin</div>
+              </div>
+            </div>
+
+            <!-- SCROLLABLE CONTENT AREA FOR THE 5 TABS -->
+            <div class="flex-1 overflow-y-auto p-4 space-y-4 bg-ivory" id="phone-scroll-container">
+
+              <!-- ========================================================= -->
+              <!-- TAB 1: BERANDA (HOME & STATUS KARUNG)                     -->
+              <!-- ========================================================= -->
+              <div id="barber-tab-home" class="space-y-4">
+                
+                <!-- Partner Profile & Green Points Card -->
+                <div class="bg-white rounded-2xl p-4 border border-borderWarm shadow-card">
+                  <div class="flex items-start justify-between gap-2">
+                    <div>
+                      <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-amber-subtle text-amber-dark border border-amber/40">
+                        <i data-lucide="award" class="w-3 h-3"></i> Mitra Green Barber Gold
+                      </span>
+                      <h3 class="text-base font-extrabold text-carbon mt-1">Barber Hub Dago</h3>
+                      <p class="text-[11px] font-mono text-carbon-light">ID: BDG-CBL-042 • Kec. Coblong (4 Kursi)</p>
+                    </div>
+                    <div class="bg-emerald-subtle border border-emerald/30 rounded-xl px-3 py-2 text-right">
+                      <div class="text-[10px] font-semibold text-emerald uppercase">Saldo Poin</div>
+                      <div class="text-base font-mono font-extrabold text-emerald" id="home-points-display">1.240 Poin</div>
+                      <div class="text-[10px] font-mono text-carbon-light" id="home-rupiah-display">≈ Rp62.000 Retribusi</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Active Breathable Sack Card -->
+                <div class="bg-white rounded-2xl p-4 border-2 border-kraft/40 shadow-card space-y-3 relative overflow-hidden">
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                      <div class="w-9 h-9 rounded-xl bg-kraft-subtle border border-kraft/30 flex items-center justify-center text-kraft">
+                        <i data-lucide="qr-code" class="w-5 h-5"></i>
+                      </div>
+                      <div>
+                        <div class="text-[10px] font-mono text-carbon-light uppercase">Karung Breathable Aktif</div>
+                        <div class="text-sm font-mono font-extrabold text-denim">QR-HL-2026-089</div>
+                      </div>
+                    </div>
+                    <span id="home-sack-badge" class="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-crimson text-white animate-pulse">
+                      80% • SIAP JEMPUT
+                    </span>
+                  </div>
+
+                  <!-- Visual Sack Progress Bar -->
+                  <div class="bg-ivory p-3 rounded-xl border border-borderWarm space-y-2">
+                    <div class="flex justify-between items-baseline text-xs">
+                      <span class="font-semibold text-carbon">Tingkat Keterisian Saat Ini:</span>
+                      <span id="home-sack-mass-label" class="font-mono font-bold text-denim">80% (~3,0 kg / 3,8 kg)</span>
+                    </div>
+                    <div class="w-full h-4 bg-ivoryDark rounded-full overflow-hidden border border-borderWarm p-0.5">
+                      <div id="home-sack-progress" class="h-full bg-crimson rounded-full transition-all duration-500" style="width: 80%"></div>
+                    </div>
+                    <div class="flex justify-between text-[10px] font-mono text-carbon-light pt-0.5">
+                      <span>0% (Kosong)</span>
+                      <span>50% (1,8 kg)</span>
+                      <span class="text-crimson font-bold">80% Picu CVRP</span>
+                      <span>100%</span>
+                    </div>
+                  </div>
+
+                  <!-- Cycle & Hygiene Indicators -->
+                  <div class="grid grid-cols-2 gap-2 text-xs">
+                    <div class="p-2.5 rounded-xl bg-ivory border border-borderWarm">
+                      <div class="text-[10px] text-carbon-light">Siklus Akumulasi</div>
+                      <div class="font-mono font-bold text-carbon mt-0.5">Hari ke-24 <span class="text-[10px] font-normal text-carbon-light">(22–30 hr)</span></div>
+                    </div>
+                    <div class="p-2.5 rounded-xl bg-ivory border border-borderWarm">
+                      <div class="text-[10px] text-carbon-light">Kondisi Karung</div>
+                      <div class="font-mono font-bold text-emerald mt-0.5 flex items-center gap-1">
+                        <i data-lucide="wind" class="w-3.5 h-3.5"></i> Kering & Higienis
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Quick Action Buttons -->
+                  <div class="pt-1 space-y-2">
+                    <button onclick="switchBarberTab('scan')" class="w-full py-2.5 px-4 rounded-xl bg-denim hover:bg-denim-dark text-white font-bold text-xs flex items-center justify-center gap-2 shadow transition">
+                      <i data-lucide="scan-line" class="w-4 h-4 text-amber"></i>
+                      <span>Pindai QR & Lapor Kepenuhan</span>
+                    </button>
+                    <button onclick="openWaModal()" class="w-full py-2.5 px-4 rounded-xl bg-emerald hover:bg-emerald-dark text-white font-bold text-xs flex items-center justify-center gap-2 shadow-sm transition">
+                      <i data-lucide="message-square-share" class="w-4 h-4"></i>
+                      <span>Kirim via WhatsApp Webhook (Zero-Install)</span>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Mini Environmental Impact Summary for Barber -->
+                <div class="bg-carbon text-ivory rounded-2xl p-4 space-y-2">
+                  <div class="flex items-center justify-between">
+                    <span class="text-[10px] font-mono text-amber uppercase font-bold">Kontribusi Dekarbonisasi Anda</span>
+                    <i data-lucide="zap" class="w-4 h-4 text-amber"></i>
+                  </div>
+                  <div class="grid grid-cols-2 gap-3 pt-1 font-mono">
+                    <div>
+                      <div class="text-lg font-extrabold text-white">18,4 kg</div>
+                      <div class="text-[10px] text-ivory/70">Total Rambut Tersalurkan</div>
+                    </div>
+                    <div>
+                      <div class="text-lg font-extrabold text-amber">3,13 kg</div>
+                      <div class="text-[10px] text-ivory/70">Setara Porous Carbon (17%)</div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- ========================================================= -->
+              <!-- TAB 2: PINDAI & INPUT LAPORAN                             -->
+              <!-- ========================================================= -->
+              <div id="barber-tab-scan" class="hidden space-y-4">
+                
+                <!-- 1. Simulated Camera QR Scanner Viewfinder -->
+                <div class="bg-carbon text-white rounded-2xl p-3.5 border border-carbon-muted shadow-card">
+                  <div class="flex items-center justify-between text-xs mb-2">
+                    <span class="font-mono font-bold text-amber flex items-center gap-1.5">
+                      <span class="w-2 h-2 rounded-full bg-emerald animate-ping"></span> KAMERA PEMINDAI QR AKTIF
+                    </span>
+                    <button onclick="rescanQRAnimation()" class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/10 hover:bg-white/20 text-ivory">
+                      Pindai Ulang
+                    </button>
+                  </div>
+
+                  <!-- Viewfinder Box -->
+                  <div class="relative h-36 rounded-xl bg-carbon-muted border-2 border-amber/60 overflow-hidden flex flex-col items-center justify-center p-3">
+                    <div class="scanner-laser"></div>
+                    <!-- Corner Brackets -->
+                    <div class="absolute top-2 left-2 w-4 h-4 border-t-2 border-l-2 border-amber"></div>
+                    <div class="absolute top-2 right-2 w-4 h-4 border-t-2 border-r-2 border-amber"></div>
+                    <div class="absolute bottom-2 left-2 w-4 h-4 border-b-2 border-l-2 border-amber"></div>
+                    <div class="absolute bottom-2 right-2 w-4 h-4 border-b-2 border-r-2 border-amber"></div>
+
+                    <div class="w-12 h-12 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center mb-1.5">
+                      <i data-lucide="qr-code" class="w-7 h-7 text-amber"></i>
+                    </div>
+                    <div class="font-mono text-xs font-extrabold tracking-wider text-ivory bg-black/50 px-2.5 py-1 rounded border border-emerald/50">
+                      ✓ QR-HL-2026-089 TERDETEKSI
+                    </div>
+                    <div class="text-[10px] font-mono text-ivory/75 mt-1">
+                      Karung Standar 15L • Barber Hub Dago (#042)
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 2. Interactive 4-Button Fill Level Selector -->
+                <div class="bg-white rounded-2xl p-4 border border-borderWarm shadow-card space-y-3">
+                  <div class="flex items-center justify-between">
+                    <label class="text-xs font-extrabold text-denim uppercase tracking-wide">
+                      1. Pilih Estimasi Keterisian Karung
+                    </label>
+                    <span class="text-[10px] font-mono text-kraft font-semibold">Tanpa Timbangan</span>
+                  </div>
+
+                  <div class="grid grid-cols-2 gap-2">
+                    <button type="button" onclick="selectFillLevel(25, 0.9)" id="fill-btn-25" class="fill-level-btn p-2.5 rounded-xl border border-borderWarm bg-ivory text-left transition">
+                      <div class="font-mono font-extrabold text-sm text-carbon">25%</div>
+                      <div class="font-mono text-[11px] text-carbon-light">~0,9 kg (Aman)</div>
+                    </button>
+
+                    <button type="button" onclick="selectFillLevel(50, 1.8)" id="fill-btn-50" class="fill-level-btn p-2.5 rounded-xl border border-borderWarm bg-ivory text-left transition">
+                      <div class="font-mono font-extrabold text-sm text-carbon">50%</div>
+                      <div class="font-mono text-[11px] text-carbon-light">~1,8 kg (Separuh)</div>
+                    </button>
+
+                    <button type="button" onclick="selectFillLevel(80, 3.0)" id="fill-btn-80" class="fill-level-btn p-2.5 rounded-xl border-2 border-crimson bg-crimson-subtle text-left transition ring-2 ring-crimson/30">
+                      <div class="font-mono font-extrabold text-sm text-crimson">80% • SIAP JEMPUT</div>
+                      <div class="font-mono text-[11px] text-crimson font-semibold">~3,0 kg (Threshold)</div>
+                    </button>
+
+                    <button type="button" onclick="selectFillLevel(100, 3.8)" id="fill-btn-100" class="fill-level-btn p-2.5 rounded-xl border border-borderWarm bg-ivory text-left transition">
+                      <div class="font-mono font-extrabold text-sm text-carbon">100% • PRIORITAS</div>
+                      <div class="font-mono text-[11px] text-carbon-light">~3,8 kg (Penuh)</div>
+                    </button>
+                  </div>
+
+                  <!-- Dynamic Status Alert Banner -->
+                  <div id="scan-status-banner" class="p-3 rounded-xl bg-crimson text-white font-mono text-xs font-bold flex items-center justify-between shadow-sm">
+                    <div class="flex items-center gap-2">
+                      <i data-lucide="flame" class="w-4 h-4 shrink-0"></i>
+                      <span id="scan-status-text">SIAP JEMPUT (Masuk Antrean CVRP)</span>
+                    </div>
+                    <span id="scan-mass-badge" class="px-2 py-0.5 rounded bg-black/25 text-[11px]">~3,0 kg</span>
+                  </div>
+                </div>
+
+                <!-- 3. AI Visual Contaminant Detector Simulation -->
+                <div class="bg-white rounded-2xl p-4 border border-borderWarm shadow-card space-y-3">
+                  <div class="flex items-center justify-between">
+                    <label class="text-xs font-extrabold text-denim uppercase tracking-wide">
+                      2. Detektor Kontaminan AI Visual
+                    </label>
+                    <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-subtle text-emerald font-bold">Edge-Vision QC</span>
+                  </div>
+
+                  <button type="button" onclick="triggerAiPhotoScan()" class="w-full py-2.5 px-3 rounded-xl bg-kraft hover:bg-kraft-dark text-white font-bold text-xs flex items-center justify-center gap-2 shadow transition">
+                    <i data-lucide="camera" class="w-4 h-4"></i>
+                    <span id="btn-ai-photo-label">Ambil Foto Permukaan Karung (Uji Ulang AI)</span>
+                  </button>
+
+                  <!-- Visual Hair Fiber Preview & AI Result Box -->
+                  <div id="ai-scan-result-box" class="p-3 rounded-xl bg-ivory border border-emerald/40 space-y-2.5">
+                    <div class="flex items-center gap-3">
+                      <!-- SVG Preview of Dry Human Hair Strands in Kraft Sack -->
+                      <div class="w-16 h-16 rounded-lg bg-carbon border-2 border-kraft overflow-hidden shrink-0 relative flex items-center justify-center">
+                        <svg viewBox="0 0 80 80" class="w-full h-full">
+                          <rect width="80" height="80" fill="#23201E"/>
+                          <path d="M10 20 Q 35 5, 65 25 T 70 55 M15 40 Q 40 25, 60 45 T 25 70 M5 55 Q 30 40, 55 65 M20 12 Q 45 35, 72 18 M12 68 Q 42 52, 68 72" stroke="#5A4638" stroke-width="2.2" fill="none"/>
+                          <path d="M18 25 Q 40 15, 62 35 M8 48 Q 38 38, 66 52 M24 62 Q 48 44, 60 68" stroke="#8C6D53" stroke-width="1.5" fill="none"/>
+                          <rect x="6" y="6" width="68" height="68" rx="4" stroke="#1E5631" stroke-width="2" stroke-dasharray="4 2" fill="none"/>
+                        </svg>
+                        <span class="absolute bottom-0.5 right-0.5 bg-emerald text-white text-[8px] font-mono px-1 rounded">98,4%</span>
+                      </div>
+                      <div>
+                        <div class="text-[11px] font-mono font-extrabold text-emerald">
+                          LOLOS PRA-VERIFIKASI MUTU
+                        </div>
+                        <div class="text-xs font-bold text-carbon">Kemurnian Estimasi: <span class="font-mono text-emerald">98,4%</span></div>
+                        <div class="text-[10px] text-carbon-light mt-0.5">Tekstur serat keratin kering terkonfirmasi.</div>
+                      </div>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-1.5 pt-1 text-[10px] font-mono">
+                      <div class="bg-emerald-subtle text-emerald px-2 py-1 rounded flex items-center gap-1 font-bold">
+                        <i data-lucide="check-circle" class="w-3 h-3 shrink-0"></i> Bebas Tisu
+                      </div>
+                      <div class="bg-emerald-subtle text-emerald px-2 py-1 rounded flex items-center gap-1 font-bold">
+                        <i data-lucide="check-circle" class="w-3 h-3 shrink-0"></i> Bebas Plastik
+                      </div>
+                      <div class="bg-emerald-subtle text-emerald px-2 py-1 rounded flex items-center gap-1 font-bold">
+                        <i data-lucide="check-circle" class="w-3 h-3 shrink-0"></i> Kondisi Kering
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 4. Auto-Geotagging & Submit to Control Tower -->
+                <div class="bg-white rounded-2xl p-4 border border-borderWarm shadow-card space-y-3">
+                  <div class="flex items-center justify-between">
+                    <label class="text-xs font-extrabold text-denim uppercase tracking-wide">
+                      3. Konfirmasi & Auto-Geotagging
+                    </label>
+                    <span class="text-[10px] font-mono text-emerald font-bold">Haversine Δ = 4,2 m (≤50 m)</span>
+                  </div>
+
+                  <div class="p-2.5 rounded-xl bg-ivory border border-borderWarm font-mono text-[11px] space-y-1">
+                    <div class="flex items-center gap-1.5 text-denim font-bold">
+                      <i data-lucide="map-pin" class="w-3.5 h-3.5 text-crimson shrink-0"></i>
+                      <span>-6.8898° S, 107.6130° E</span>
+                    </div>
+                    <div class="text-carbon-light text-[10px] pl-5">
+                      Jl. Ir. H. Juanda (Dago), Kec. Coblong, Kota Bandung
+                    </div>
+                  </div>
+
+                  <button type="button" onclick="submitPickupToControlTower()" class="w-full py-3 px-4 rounded-xl bg-emerald hover:bg-emerald-dark text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-md transition">
+                    <i data-lucide="send" class="w-4 h-4"></i>
+                    <span>Kirim Permintaan Jemput ke Control Tower</span>
+                  </button>
+
+                  <button type="button" onclick="openWaModal()" class="w-full py-2 px-3 rounded-xl bg-ivory hover:bg-ivoryDark text-denim border border-borderWarm font-bold text-xs flex items-center justify-center gap-2 transition">
+                    <i data-lucide="message-circle" class="w-4 h-4 text-emerald"></i>
+                    <span>Pratinjau Pesan WhatsApp Webhook</span>
+                  </button>
+                </div>
+
+              </div>
+
+              <!-- ========================================================= -->
+              <!-- TAB 3: PELACAK PENJEMPUTAN & PANDUAN MUTU (TRACKING & SOP)-->
+              <!-- ========================================================= -->
+              <div id="barber-tab-track" class="hidden space-y-4">
+                
+                <!-- Live Tricycle Tracking Timeline -->
+                <div class="bg-white rounded-2xl p-4 border border-borderWarm shadow-card space-y-3">
+                  <div class="flex items-center justify-between">
+                    <div>
+                      <span class="text-[10px] font-mono font-bold text-emerald uppercase">Pelacakan Armada Real-Time</span>
+                      <h3 class="text-sm font-extrabold text-denim">Rute CVRP #04 • Klaster Coblong</h3>
+                    </div>
+                    <span id="track-eta-badge" class="px-2.5 py-1 rounded-full bg-amber-subtle text-amber-dark font-mono text-[11px] font-bold">
+                      ETA: 14 Menit
+                    </span>
+                  </div>
+
+                  <div class="p-2.5 rounded-xl bg-ivory border border-borderWarm flex items-center justify-between text-xs">
+                    <div class="flex items-center gap-2.5">
+                      <div class="w-8 h-8 rounded-lg bg-denim text-white flex items-center justify-center">
+                        <i data-lucide="navigation" class="w-4 h-4"></i>
+                      </div>
+                      <div>
+                        <div class="font-bold text-carbon">Armada Viar Karya 150L (D-8842-HL)</div>
+                        <div class="text-[10px] font-mono text-carbon-light">Kurir: Kang Asep Suryana • TPS 3R Saling Asih</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 4-Step Vertical Timeline -->
+                  <div class="space-y-3 pl-2 pt-1" id="tracking-timeline-list">
+                    <!-- Step 1 -->
+                    <div class="flex items-start gap-3">
+                      <div class="w-6 h-6 rounded-full bg-emerald text-white flex items-center justify-center text-xs shrink-0 mt-0.5">
+                        ✓
+                      </div>
+                      <div>
+                        <div class="text-xs font-bold text-carbon">1. Laporan Terverifikasi</div>
+                        <div class="text-[11px] text-carbon-light font-mono">QR-HL-2026-089 • Kemurnian AI 98,4% • GPS Valid</div>
+                      </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="flex items-start gap-3">
+                      <div class="w-6 h-6 rounded-full bg-emerald text-white flex items-center justify-center text-xs shrink-0 mt-0.5">
+                        ✓
+                      </div>
+                      <div>
+                        <div class="text-xs font-bold text-carbon">2. Terjadwal di Rute CVRP #04</div>
+                        <div class="text-[11px] text-carbon-light font-mono">Urutan Kunjungan #2 dari 6 Titik Merah</div>
+                      </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="flex items-start gap-3">
+                      <div id="step3-indicator" class="w-6 h-6 rounded-full bg-amber text-carbon font-mono font-bold flex items-center justify-center text-xs shrink-0 mt-0.5 animate-pulse">
+                        3
+                      </div>
+                      <div>
+                        <div class="text-xs font-bold text-denim">3. Kurir Viar Karya 150L Menuju Lokasi [ETA: 14 Menit]</div>
+                        <div class="text-[11px] text-carbon-light">Posisi saat ini: Jl. Dipatiukur → Jl. Ir. H. Juanda</div>
+                      </div>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="flex items-start gap-3">
+                      <div id="step4-indicator" class="w-6 h-6 rounded-full bg-ivoryDark text-carbon-light font-mono font-bold flex items-center justify-center text-xs shrink-0 mt-0.5 border border-borderWarm">
+                        4
+                      </div>
+                      <div>
+                        <div id="step4-title" class="text-xs font-semibold text-carbon-light">4. Selesai Ditimbang & Poin Masuk</div>
+                        <div id="step4-desc" class="text-[11px] text-carbon-light font-mono">Menunggu timbangan gantung digital kurir (+155 Poin)</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Interactive Demo Button to Complete Step 4 -->
+                  <button onclick="simulateCourierArrival()" id="btn-simulate-arrival" class="w-full py-2 px-3 rounded-xl bg-denim-subtle hover:bg-denim text-denim hover:text-white border border-denim/30 font-bold text-xs transition flex items-center justify-center gap-1.5">
+                    <i data-lucide="scale" class="w-4 h-4"></i>
+                    <span>Simulasikan Kurir Tiba & Timbang Aktual (3,10 kg)</span>
+                  </button>
+                </div>
+
+                <!-- Visual Quality Standard Guide (SOP Pemilahan) -->
+                <div class="bg-white rounded-2xl p-4 border border-borderWarm shadow-card space-y-3">
+                  <h3 class="text-xs font-extrabold text-denim uppercase tracking-wide flex items-center gap-1.5">
+                    <i data-lucide="book-check" class="w-4 h-4 text-kraft"></i>
+                    Panduan Standar Mutu (SOP Pemilahan Hulu)
+                  </h3>
+
+                  <div class="grid grid-cols-1 gap-2.5 text-xs">
+                    <!-- BOLEH -->
+                    <div class="p-3 rounded-xl bg-emerald-subtle border border-emerald/30 space-y-1.5">
+                      <div class="font-extrabold text-emerald flex items-center gap-1.5">
+                        <i data-lucide="check-circle-2" class="w-4 h-4"></i> BOLEH DIMASUKKAN (DITERIMA)
+                      </div>
+                      <ul class="text-[11px] text-carbon space-y-1 pl-4 list-disc">
+                        <li><strong>Rambut potongan kering</strong> dari segala jenis layanan potong/cukur pria & wanita.</li>
+                        <li>Sapuan rambut lantai yang telah dipisahkan dari puntung rokok atau kerikil.</li>
+                      </ul>
+                    </div>
+
+                    <!-- DILARANG -->
+                    <div class="p-3 rounded-xl bg-crimson-subtle border border-crimson/30 space-y-1.5">
+                      <div class="font-extrabold text-crimson flex items-center gap-1.5">
+                        <i data-lucide="x-octagon" class="w-4 h-4"></i> DILARANG KERAS (KONTAMINAN REAKTOR)
+                      </div>
+                      <ul class="text-[11px] text-carbon space-y-1 pl-4 list-disc">
+                        <li><strong>Silet / pisau cukur bekas</strong> (bahaya fisik operator TPS 3R).</li>
+                        <li><strong>Tisu basah, kapas, & masker</strong> (mengganggu rasio doping N,S pirolisis).</li>
+                        <li><strong>Botol/kemasan plastik</strong> & rambut basah kuyup/berlumpur pomade berlebih.</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- ========================================================= -->
+              <!-- TAB 4: LEADERBOARD & INSENTIF ("Green Barber Bandung")    -->
+              <!-- ========================================================= -->
+              <div id="barber-tab-rewards" class="hidden space-y-4">
+                
+                <!-- Top 5 Leaderboard -->
+                <div class="bg-white rounded-2xl p-4 border border-borderWarm shadow-card space-y-3">
+                  <div class="flex items-center justify-between">
+                    <div>
+                      <span class="text-[10px] font-mono font-bold text-kraft uppercase">Klasemen Klaster Percontohan</span>
+                      <h3 class="text-sm font-extrabold text-denim">Top 5 Green Barber Bandung</h3>
+                    </div>
+                    <span class="px-2 py-0.5 rounded bg-ivory border border-borderWarm font-mono text-[10px]">Okt 2026</span>
+                  </div>
+
+                  <div class="space-y-2 text-xs">
+                    <div class="p-2.5 rounded-xl bg-amber-subtle/70 border border-amber flex items-center justify-between">
+                      <div class="flex items-center gap-2.5">
+                        <span class="w-6 h-6 rounded-full bg-amber text-carbon font-mono font-extrabold flex items-center justify-center text-xs">1</span>
+                        <div>
+                          <div class="font-extrabold text-carbon">Barber Hub Dago (#042) <span class="text-[10px] text-emerald font-mono">[ANDA]</span></div>
+                          <div class="text-[10px] font-mono text-carbon-light">Kec. Coblong • Kemurnian QC: 98,4%</div>
+                        </div>
+                      </div>
+                      <span class="font-mono font-extrabold text-denim" id="leaderboard-user-pts">1.240 Pt</span>
+                    </div>
+
+                    <div class="p-2 rounded-xl bg-ivory border border-borderWarm flex items-center justify-between">
+                      <div class="flex items-center gap-2.5">
+                        <span class="w-6 h-6 rounded-full bg-denim text-white font-mono font-bold flex items-center justify-center text-xs">2</span>
+                        <div>
+                          <div class="font-bold text-carbon">Riau Gentlemen Grooming (#077)</div>
+                          <div class="text-[10px] font-mono text-carbon-light">Kec. Bandung Wetan • QC: 97,9%</div>
+                        </div>
+                      </div>
+                      <span class="font-mono font-bold text-carbon">1.190 Pt</span>
+                    </div>
+
+                    <div class="p-2 rounded-xl bg-ivory border border-borderWarm flex items-center justify-between">
+                      <div class="flex items-center gap-2.5">
+                        <span class="w-6 h-6 rounded-full bg-kraft text-white font-mono font-bold flex items-center justify-center text-xs">3</span>
+                        <div>
+                          <div class="font-bold text-carbon">Cukur Pria Lengkong Besar (#018)</div>
+                          <div class="text-[10px] font-mono text-carbon-light">Kec. Lengkong • QC: 97,2%</div>
+                        </div>
+                      </div>
+                      <span class="font-mono font-bold text-carbon">1.125 Pt</span>
+                    </div>
+
+                    <div class="p-2 rounded-xl bg-ivory border border-borderWarm flex items-center justify-between">
+                      <div class="flex items-center gap-2.5">
+                        <span class="w-6 h-6 rounded-full bg-ivoryDark text-carbon font-mono font-bold flex items-center justify-center text-xs">4</span>
+                        <div>
+                          <div class="font-semibold text-carbon">Dipatiukur Fade Studio (#053)</div>
+                          <div class="text-[10px] font-mono text-carbon-light">Kec. Coblong • QC: 96,5%</div>
+                        </div>
+                      </div>
+                      <span class="font-mono font-bold text-carbon">980 Pt</span>
+                    </div>
+
+                    <div class="p-2 rounded-xl bg-ivory border border-borderWarm flex items-center justify-between">
+                      <div class="flex items-center gap-2.5">
+                        <span class="w-6 h-6 rounded-full bg-ivoryDark text-carbon font-mono font-bold flex items-center justify-center text-xs">5</span>
+                        <div>
+                          <div class="font-semibold text-carbon">Buahbatu Classic Cut (#112)</div>
+                          <div class="text-[10px] font-mono text-carbon-light">Kec. Lengkong • QC: 95,8%</div>
+                        </div>
+                      </div>
+                      <span class="font-mono font-bold text-carbon">940 Pt</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Point Redemption Catalog -->
+                <div class="bg-white rounded-2xl p-4 border border-borderWarm shadow-card space-y-3">
+                  <div class="flex items-center justify-between">
+                    <h3 class="text-xs font-extrabold text-denim uppercase tracking-wide">Katalog Penukaran Green Poin</h3>
+                    <span class="text-[11px] font-mono font-bold text-emerald" id="catalog-points-Sub">Saldo: 1.240 Pt</span>
+                  </div>
+
+                  <div class="space-y-2.5 text-xs">
+                    <div class="p-3 rounded-xl bg-ivory border border-borderWarm flex items-center justify-between gap-2">
+                      <div>
+                        <div class="font-bold text-carbon">Voucher Retribusi Kebersihan DLH (-Rp25.000)</div>
+                        <div class="text-[10px] font-mono text-kraft">Biaya: 500 Poin • Potongan Tagihan Bulanan</div>
+                      </div>
+                      <button onclick="redeemReward('Voucher Retribusi DLH Rp25.000', 500)" class="px-3 py-1.5 rounded-lg bg-emerald hover:bg-emerald-dark text-white font-bold text-[11px] shrink-0">
+                        Tukar 500 Pt
+                      </button>
+                    </div>
+
+                    <div class="p-3 rounded-xl bg-ivory border border-borderWarm flex items-center justify-between gap-2">
+                      <div>
+                        <div class="font-bold text-carbon">Sertifikat & Stiker "Eco-Grooming Partner"</div>
+                        <div class="text-[10px] font-mono text-kraft">Biaya: 400 Poin • Branding Hijau Toko</div>
+                      </div>
+                      <button onclick="redeemReward('Sertifikat Eco-Grooming Partner', 400)" class="px-3 py-1.5 rounded-lg bg-denim hover:bg-denim-dark text-white font-bold text-[11px] shrink-0">
+                        Tukar 400 Pt
+                      </button>
+                    </div>
+
+                    <div class="p-3 rounded-xl bg-ivory border border-borderWarm flex items-center justify-between gap-2">
+                      <div>
+                        <div class="font-bold text-carbon">2x Karung Breathable Cadangan QR Baru</div>
+                        <div class="text-[10px] font-mono text-kraft">Biaya: 200 Poin • Subsidi Silang Operasional</div>
+                      </div>
+                      <button onclick="redeemReward('2x Karung Breathable QR Baru', 200)" class="px-3 py-1.5 rounded-lg bg-kraft hover:bg-kraft-dark text-white font-bold text-[11px] shrink-0">
+                        Tukar 200 Pt
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- ========================================================= -->
+              <!-- TAB 5: PROFIL & RIWAYAT (PROFILE & HISTORY)               -->
+              <!-- ========================================================= -->
+              <div id="barber-tab-profile" class="hidden space-y-4">
+                
+                <!-- Account Metrics Summary -->
+                <div class="bg-white rounded-2xl p-4 border border-borderWarm shadow-card space-y-3">
+                  <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-2xl bg-denim text-white flex items-center justify-center font-mono font-extrabold text-base">
+                      #042
+                    </div>
+                    <div>
+                      <h3 class="text-sm font-extrabold text-carbon">Barber Hub Dago</h3>
+                      <p class="text-[11px] font-mono text-carbon-light">ID Mitra: BDG-CBL-042 • Bergabung Jan 2026</p>
+                      <span class="inline-block mt-0.5 px-2 py-0.5 rounded bg-emerald-subtle text-emerald font-mono text-[10px] font-bold">
+                        Terverifikasi GIS Kecamatan Coblong
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="grid grid-cols-2 gap-2 pt-1 font-mono text-xs">
+                    <div class="p-2.5 rounded-xl bg-ivory border border-borderWarm">
+                      <div class="text-[10px] text-carbon-light">RATA-RATA TIMBULAN</div>
+                      <div class="text-sm font-extrabold text-denim">0,142 kg/hari</div>
+                      <div class="text-[10px] text-carbon-light">~4,26 kg/bulan</div>
+                    </div>
+                    <div class="p-2.5 rounded-xl bg-ivory border border-borderWarm">
+                      <div class="text-[10px] text-carbon-light">SKOR KEPATUHAN SOP</div>
+                      <div class="text-sm font-extrabold text-emerald">96 / 100</div>
+                      <div class="text-[10px] text-carbon-light">0 Penolakan QC</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Pickup History Table (Last 5 Pickups) -->
+                <div class="bg-white rounded-2xl p-4 border border-borderWarm shadow-card space-y-2.5">
+                  <div class="flex items-center justify-between">
+                    <h3 class="text-xs font-extrabold text-denim uppercase tracking-wide">Riwayat 5 Penjemputan Terakhir</h3>
+                    <span class="text-[10px] font-mono text-carbon-light">50 Poin / kg murni</span>
+                  </div>
+
+                  <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse font-mono text-[11px]">
+                      <thead>
+                        <tr class="border-b border-borderWarm text-carbon-light text-[10px]">
+                          <th class="py-1.5">Tanggal</th>
+                          <th class="py-1.5">Bobot</th>
+                          <th class="py-1.5">Status QC</th>
+                          <th class="py-1.5 text-right">Poin</th>
+                        </tr>
+                      </thead>
+                      <tbody id="barber-history-tbody" class="divide-y divide-borderWarm/60">
+                        <tr>
+                          <td class="py-2">19 Sep 26</td>
+                          <td class="py-2 font-bold text-carbon">3,15 kg</td>
+                          <td class="py-2"><span class="px-1.5 py-0.5 rounded bg-emerald-subtle text-emerald text-[10px]">Lolos 98%</span></td>
+                          <td class="py-2 text-right font-bold text-emerald">+158</td>
+                        </tr>
+                        <tr>
+                          <td class="py-2">25 Agu 26</td>
+                          <td class="py-2 font-bold text-carbon">2,95 kg</td>
+                          <td class="py-2"><span class="px-1.5 py-0.5 rounded bg-emerald-subtle text-emerald text-[10px]">Lolos 97%</span></td>
+                          <td class="py-2 text-right font-bold text-emerald">+148</td>
+                        </tr>
+                        <tr>
+                          <td class="py-2">01 Agu 26</td>
+                          <td class="py-2 font-bold text-carbon">3,40 kg</td>
+                          <td class="py-2"><span class="px-1.5 py-0.5 rounded bg-emerald-subtle text-emerald text-[10px]">Lolos 99%</span></td>
+                          <td class="py-2 text-right font-bold text-emerald">+170</td>
+                        </tr>
+                        <tr>
+                          <td class="py-2">07 Jul 26</td>
+                          <td class="py-2 font-bold text-carbon">3,05 kg</td>
+                          <td class="py-2"><span class="px-1.5 py-0.5 rounded bg-emerald-subtle text-emerald text-[10px]">Lolos 96%</span></td>
+                          <td class="py-2 text-right font-bold text-emerald">+153</td>
+                        </tr>
+                        <tr>
+                          <td class="py-2">12 Jun 26</td>
+                          <td class="py-2 font-bold text-carbon">2,85 kg</td>
+                          <td class="py-2"><span class="px-1.5 py-0.5 rounded bg-emerald-subtle text-emerald text-[10px]">Lolos 98%</span></td>
+                          <td class="py-2 text-right font-bold text-emerald">+143</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+            <!-- =========================================================== -->
+            <!-- SMARTPHONE 5-TAB BOTTOM NAVIGATION BAR                      -->
+            <!-- =========================================================== -->
+            <nav class="bg-white border-t border-borderWarm px-2 py-1.5 grid grid-cols-5 gap-1 shrink-0 select-none">
+              <button onclick="switchBarberTab('home')" id="bnav-home" class="bnav-item flex flex-col items-center justify-center py-1 rounded-xl text-denim bg-denim-subtle font-bold">
+                <i data-lucide="home" class="w-4 h-4"></i>
+                <span class="text-[10px] mt-0.5">Beranda</span>
+              </button>
+
+              <button onclick="switchBarberTab('scan')" id="bnav-scan" class="bnav-item flex flex-col items-center justify-center py-1 rounded-xl text-carbon-light hover:text-denim">
+                <i data-lucide="qr-code" class="w-4 h-4"></i>
+                <span class="text-[10px] mt-0.5">Pindai QR</span>
+              </button>
+
+              <button onclick="switchBarberTab('track')" id="bnav-track" class="bnav-item flex flex-col items-center justify-center py-1 rounded-xl text-carbon-light hover:text-denim">
+                <i data-lucide="truck" class="w-4 h-4"></i>
+                <span class="text-[10px] mt-0.5">Pelacak</span>
+              </button>
+
+              <button onclick="switchBarberTab('rewards')" id="bnav-rewards" class="bnav-item flex flex-col items-center justify-center py-1 rounded-xl text-carbon-light hover:text-denim">
+                <i data-lucide="trophy" class="w-4 h-4"></i>
+                <span class="text-[10px] mt-0.5">Insentif</span>
+              </button>
+
+              <button onclick="switchBarberTab('profile')" id="bnav-profile" class="bnav-item flex flex-col items-center justify-center py-1 rounded-xl text-carbon-light hover:text-denim">
+                <i data-lucide="user-check" class="w-4 h-4"></i>
+                <span class="text-[10px] mt-0.5">Profil</span>
+              </button>
+            </nav>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- MODE 3: MODE CONTROL TOWER PENGELOLA (DASHBOARD TI & GIS)           -->
+    <!-- =================================================================== -->
+    <section id="view-tower" class="hidden space-y-6">
+      
+      <!-- Top Control Tower KPI Strip -->
+      <div class="bg-denim text-white rounded-2xl p-4 sm:p-5 border border-kraft shadow-card">
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-white/15">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded bg-emerald text-white font-mono text-[11px] font-bold">LIVE TELEMETRY</span>
+              <span class="text-xs font-mono text-amber">MICRO-HUB TPS 3R SALING ASIH • KOTA BANDUNG</span>
+            </div>
+            <h2 class="text-lg sm:text-xl font-extrabold text-ivory mt-1">
+              Control Tower Reverse Logistics & Hilirisasi N,S Co-Doped Porous Carbon
+            </h2>
+          </div>
+          <div class="flex flex-wrap items-center gap-2">
+            <a href="#module-gis" class="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-xs font-mono">1. GIS & CVRP</a>
+            <a href="#module-calc" class="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-xs font-mono">2. Skenario A/B/C</a>
+            <a href="#module-schedule" class="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-xs font-mono">3. Smart Schedule</a>
+            <a href="#module-carbon" class="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-xs font-mono">4. Porous Carbon & QC</a>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4 font-mono">
+          <div class="bg-denim-dark/80 p-3 rounded-xl border border-white/10">
+            <div class="text-[11px] text-ivory/70">ANTREAN SIAP JEMPUT (≥80%)</div>
+            <div class="text-xl font-extrabold text-amber mt-0.5" id="tower-kpi-urgent">6 Unit (19,7 kg)</div>
+            <div class="text-[10px] text-emerald-300">Kapasitas Viar 150L: Aman</div>
+          </div>
+          <div class="bg-denim-dark/80 p-3 rounded-xl border border-white/10">
+            <div class="text-[11px] text-ivory/70">JARAK RUTE CVRP AKTIF</div>
+            <div class="text-xl font-extrabold text-ivory mt-0.5" id="tower-kpi-distance">1.509,30 km/bln</div>
+            <div class="text-[10px] text-amber">Hemat 16,15% vs Statis</div>
+          </div>
+          <div class="bg-denim-dark/80 p-3 rounded-xl border border-white/10">
+            <div class="text-[11px] text-ivory/70">REDUKSI EMISI CO₂</div>
+            <div class="text-xl font-extrabold text-emerald-300 mt-0.5" id="tower-kpi-co2">83,16%</div>
+            <div class="text-[10px] text-ivory/75">Rentang: 82,04% – 84,23%</div>
+          </div>
+          <div class="bg-denim-dark/80 p-3 rounded-xl border border-white/10">
+            <div class="text-[11px] text-ivory/70">OUTPUT POROUS CARBON</div>
+            <div class="text-xl font-extrabold text-amber mt-0.5" id="tower-kpi-carbon">507,45 kg/bln</div>
+            <div class="text-[10px] text-ivory/75">Energi: 19,49–27,05 kWh/bln</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================================================================= -->
+      <!-- MODUL 1: PETA SPASIAL GIS INTERAKTIF KOTA BANDUNG (LEAFLET.JS)    -->
+      <!-- ================================================================= -->
+      <div id="module-gis" class="bg-white rounded-2xl border border-borderWarm shadow-card overflow-hidden">
+        <div class="p-5 border-b border-borderWarm flex flex-col lg:flex-row lg:items-center justify-between gap-4 bg-ivory/50">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2.5 py-0.5 rounded bg-denim text-white font-mono text-xs font-bold">MODUL 1</span>
+              <span class="text-xs font-mono font-semibold text-kraft">LAMPIRAN 1.C • PEMETAAN SPASIAL & SOLVER CVRP</span>
+            </div>
+            <h3 class="text-lg font-extrabold text-denim mt-1">
+              Peta Spasial GIS Interaktif Klaster Percontohan Bandung (Coblong, Bandung Wetan, Lengkong)
+            </h3>
+            <p class="text-xs text-carbon-light mt-0.5">
+              Klik marker pada peta untuk inspeksi telemetri karung QR atau jalankan optimasi rute <strong>Dynamic CVRP</strong> untuk menghubungkan Micro-Hub TPS 3R ke seluruh titik Barbershop berstatus Merah (≥80%).
+            </p>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2 shrink-0">
+            <button onclick="runDynamicCVRP()" id="btn-run-cvrp" class="px-4 py-2.5 rounded-xl bg-emerald hover:bg-emerald-dark text-white font-extrabold text-xs sm:text-sm flex items-center gap-2 shadow-md transition">
+              <i data-lucide="route" class="w-4 h-4"></i>
+              <span>Jalankan Optimasi Rute Dynamic CVRP (min Z = αD + βT + γC + δE)</span>
+            </button>
+            <button onclick="resetCVRPRoute()" class="px-3 py-2.5 rounded-xl bg-ivory hover:bg-ivoryDark text-carbon border border-borderWarm font-bold text-xs flex items-center gap-1.5 transition">
+              <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+              <span>Reset</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12">
+          <!-- Left: Actual Leaflet Map Container -->
+          <div class="lg:col-span-8 relative">
+            <div id="bandung-gis-map" class="w-full h-[480px] sm:h-[540px] bg-ivoryDark"></div>
+
+            <!-- Floating Map Legend Overlay -->
+            <div class="absolute bottom-4 left-4 z-[20] bg-white/95 backdrop-blur-sm p-3 rounded-xl border border-borderWarm shadow-elevated text-xs space-y-1.5 max-w-xs">
+              <div class="font-extrabold text-denim text-[11px] uppercase tracking-wider border-b border-borderWarm pb-1">
+                Legenda Status Karung (Lampiran 1.C)
+              </div>
+              <div class="flex items-center justify-between gap-4">
+                <span class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-crimson inline-block"></span> Merah (≥80% Siap Jemput)</span>
+                <span class="font-mono font-bold text-crimson" id="legend-red-count">6 Titik</span>
+              </div>
+              <div class="flex items-center justify-between gap-4">
+                <span class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-amber inline-block"></span> Kuning (50–79% Akumulasi)</span>
+                <span class="font-mono font-bold text-amber-dark">5 Titik</span>
+              </div>
+              <div class="flex items-center justify-between gap-4">
+                <span class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-emerald inline-block"></span> Hijau (&lt;50% Aman)</span>
+                <span class="font-mono font-bold text-emerald">3 Titik</span>
+              </div>
+              <div class="flex items-center justify-between gap-4">
+                <span class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-gray-500 inline-block"></span> Abu-abu (&gt;30 Hr Audit)</span>
+                <span class="font-mono font-bold text-gray-600">1 Titik</span>
+              </div>
+              <div class="flex items-center justify-between gap-4 pt-1 border-t border-borderWarm">
+                <span class="flex items-center gap-2"><span class="w-3 h-3 rounded bg-denim inline-block"></span> Micro-Hub TPS 3R Saling Asih</span>
+                <span class="font-mono font-bold text-denim">Depot</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: CVRP Route Manifest & Node Directory -->
+          <div class="lg:col-span-4 border-t lg:border-t-0 lg:border-l border-borderWarm p-4 flex flex-col justify-between bg-ivory/40 h-[540px] overflow-y-auto">
+            <div class="space-y-4">
+              <!-- Route Optimization Status Box -->
+              <div id="cvrp-result-card" class="p-4 rounded-xl bg-white border-2 border-emerald/40 shadow-sm space-y-2.5">
+                <div class="flex items-center justify-between">
+                  <span class="text-[11px] font-mono font-bold text-emerald uppercase">Status Solver Dynamic CVRP</span>
+                  <span id="cvrp-badge-state" class="px-2 py-0.5 rounded bg-amber-subtle text-amber-dark font-mono text-[10px] font-bold">Siap Optimasi</span>
+                </div>
+                <div class="grid grid-cols-2 gap-2 font-mono text-xs">
+                  <div class="p-2 rounded-lg bg-ivory border border-borderWarm">
+                    <div class="text-[10px] text-carbon-light">JARAK SIKLUS RUTE</div>
+                    <div class="font-extrabold text-denim" id="cvrp-loop-km">14,82 km (Optimal)</div>
+                  </div>
+                  <div class="p-2 rounded-lg bg-ivory border border-borderWarm">
+                    <div class="text-[10px] text-carbon-light">TOTAL MUATAN KARUNG</div>
+                    <div class="font-extrabold text-emerald" id="cvrp-total-load">19,70 kg / 150L</div>
+                  </div>
+                  <div class="p-2 rounded-lg bg-ivory border border-borderWarm">
+                    <div class="text-[10px] text-carbon-light">BBM RODA TIGA</div>
+                    <div class="font-extrabold text-kraft" id="cvrp-fuel-liters">1,04 L Bensin</div>
+                  </div>
+                  <div class="p-2 rounded-lg bg-ivory border border-borderWarm">
+                    <div class="text-[10px] text-carbon-light">ESTIMASI WAKTU</div>
+                    <div class="font-extrabold text-carbon" id="cvrp-duration">48 Menit</div>
+                  </div>
+                </div>
+                <div id="cvrp-sequence-box" class="text-[11px] font-mono text-carbon-light bg-ivory p-2.5 rounded-lg border border-borderWarm leading-relaxed">
+                  Klik tombol <strong>"Jalankan Optimasi Rute Dynamic CVRP"</strong> untuk menghitung urutan kunjungan terdekat (Nearest-Neighbor + 2-Opt) dari Micro-Hub TPS 3R.
+                </div>
+              </div>
+
+              <!-- Filter & List of 15 Barbershop Nodes -->
+              <div class="space-y-2">
+                <div class="flex items-center justify-between">
+                  <h4 class="text-xs font-extrabold text-denim uppercase">Daftar 15 Titik Sampel GIS</h4>
+                  <div class="flex gap-1">
+                    <button onclick="filterMapNodes('ALL')" class="px-2 py-0.5 rounded text-[10px] font-mono bg-denim text-white">Semua (15)</button>
+                    <button onclick="filterMapNodes('RED')" class="px-2 py-0.5 rounded text-[10px] font-mono bg-crimson text-white">Merah (6)</button>
+                  </div>
+                </div>
+                <div id="gis-node-list" class="space-y-1.5 text-xs">
+                  <!-- Populated dynamically by JS -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================================================================= -->
+      <!-- MODUL 2: KALKULATOR & KOMPARATOR SKENARIO LOGISTIK (A vs B vs C)  -->
+      <!-- ================================================================= -->
+      <div id="module-calc" class="bg-white rounded-2xl border border-borderWarm shadow-card p-5 sm:p-6 space-y-5">
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-borderWarm">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2.5 py-0.5 rounded bg-emerald text-white font-mono text-xs font-bold">MODUL 2</span>
+              <span class="text-xs font-mono font-semibold text-kraft">KOMPARASI SKENARIO A vs B vs C • BASELINE 1.800 KM/BULAN</span>
+            </div>
+            <h3 class="text-lg font-extrabold text-denim mt-1">
+              Kalkulator & Komparator Efisiensi Logistik: Substitusi Armada + Dynamic CVRP
+            </h3>
+            <p class="text-xs text-carbon-light mt-0.5">
+              Geser slider penghematan jarak CVRP antara <strong>10,59%</strong> (Studi empiris Banyuwangi, Utamima et al., 2026) hingga <strong>21,51%</strong> (Meta-analisis Maciel et al., 2025).
+            </p>
+          </div>
+
+          <!-- Preset Buttons -->
+          <div class="flex flex-wrap gap-2 shrink-0">
+            <button onclick="setCvrpSlider(10.59)" class="px-3 py-1.5 rounded-lg bg-ivory hover:bg-ivoryDark border border-borderWarm font-mono text-xs font-bold text-denim">
+              10,59% (Utamima et al., 2026)
+            </button>
+            <button onclick="setCvrpSlider(16.05)" class="px-3 py-1.5 rounded-lg bg-ivory hover:bg-ivoryDark border border-borderWarm font-mono text-xs font-bold text-emerald">
+              16,05% (Median)
+            </button>
+            <button onclick="setCvrpSlider(21.51)" class="px-3 py-1.5 rounded-lg bg-ivory hover:bg-ivoryDark border border-borderWarm font-mono text-xs font-bold text-kraft">
+              21,51% (Maciel et al., 2025)
+            </button>
+          </div>
+        </div>
+
+        <!-- Interactive Slider Control -->
+        <div class="bg-ivory p-4 rounded-xl border border-borderWarm space-y-2">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <label for="cvrp-savings-slider" class="text-xs sm:text-sm font-extrabold text-carbon flex items-center gap-2">
+              <i data-lucide="sliders-horizontal" class="w-4 h-4 text-emerald"></i>
+              <span>Persentase Penghematan Jarak Tempuh Dynamic CVRP:</span>
+            </label>
+            <div class="flex items-center gap-2">
+              <span id="cvrp-slider-val-badge" class="px-3 py-1 rounded-lg bg-emerald text-white font-mono text-sm font-extrabold">
+                16,15%
+              </span>
+              <span id="cvrp-slider-ref-tag" class="text-xs font-mono text-carbon-light">
+                (Rentang Empiris: 10,59% – 21,51%)
+              </span>
+            </div>
+          </div>
+
+          <input id="cvrp-savings-slider" type="range" min="10.59" max="21.51" step="0.01" value="16.15" oninput="updateLogisticsCalculator(this.value)" class="industrial-slider" />
+
+          <div class="flex justify-between text-[11px] font-mono text-carbon-light pt-1">
+            <span>10,59% (1.609,38 km/bln • Reduksi CO₂ 82,04%)</span>
+            <span>16,05% (1.511,10 km/bln • Reduksi CO₂ 83,14%)</span>
+            <span>21,51% (1.412,82 km/bln • Reduksi CO₂ 84,23%)</span>
+          </div>
+        </div>
+
+        <!-- Table & Chart Grid -->
+        <div class="grid grid-cols-1 xl:grid-cols-12 gap-6 items-center">
+          <!-- Left: Dynamic Comparison Table -->
+          <div class="xl:col-span-7 overflow-x-auto">
+            <table class="w-full text-left border-collapse text-xs">
+              <thead>
+                <tr class="bg-denim text-white font-mono text-[11px]">
+                  <th class="p-3 rounded-tl-xl">Parameter Kinerja Bulanan</th>
+                  <th class="p-3">Skenario A<br/><span class="font-normal text-ivory/75">Truk Solar (0,300 L/km)</span></th>
+                  <th class="p-3">Skenario B<br/><span class="font-normal text-ivory/75">Roda 3 Statis (0,070 L/km)</span></th>
+                  <th class="p-3 bg-emerald rounded-tr-xl">Skenario C (HAIR-LOOP)<br/><span class="font-normal text-ivory/90">Roda 3 + Dynamic CVRP</span></th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-borderWarm font-mono">
+                <tr class="bg-white">
+                  <td class="p-3 font-sans font-bold text-carbon">Jarak Tempuh (km/bln)</td>
+                  <td class="p-3 text-carbon">1.800,00 km</td>
+                  <td class="p-3 text-carbon">1.800,00 km</td>
+                  <td class="p-3 font-extrabold text-emerald bg-emerald-subtle/40" id="tbl-c-dist">1.509,30 km</td>
+                </tr>
+                <tr class="bg-ivory/40">
+                  <td class="p-3 font-sans font-bold text-carbon">Konsumsi BBM (L/bln)</td>
+                  <td class="p-3 text-crimson font-semibold">540,00 L Solar</td>
+                  <td class="p-3 text-amber-dark font-semibold">126,00 L Bensin</td>
+                  <td class="p-3 font-extrabold text-emerald bg-emerald-subtle/40" id="tbl-c-fuel">105,65 L Bensin</td>
+                </tr>
+                <tr class="bg-white">
+                  <td class="p-3 font-sans font-bold text-carbon">Faktor Emisi BBM</td>
+                  <td class="p-3 text-carbon-light">2,66 kg CO₂/L</td>
+                  <td class="p-3 text-carbon-light">2,29 kg CO₂/L</td>
+                  <td class="p-3 text-emerald font-semibold bg-emerald-subtle/40">2,29 kg CO₂/L</td>
+                </tr>
+                <tr class="bg-ivory/40">
+                  <td class="p-3 font-sans font-bold text-carbon">Total Emisi (kg CO₂/bln)</td>
+                  <td class="p-3 text-crimson font-extrabold">1.436,40 kg CO₂</td>
+                  <td class="p-3 text-amber-dark font-bold">288,54 kg CO₂</td>
+                  <td class="p-3 font-extrabold text-emerald bg-emerald-subtle/40 text-sm" id="tbl-c-co2">241,94 kg CO₂</td>
+                </tr>
+                <tr class="bg-white">
+                  <td class="p-3 font-sans font-bold text-carbon">Reduksi Emisi vs Skenario A</td>
+                  <td class="p-3 text-carbon-light">0,00% (Baseline)</td>
+                  <td class="p-3 text-denim font-bold">-79,91%</td>
+                  <td class="p-3 font-extrabold text-white bg-emerald text-sm" id="tbl-c-red">-83,16%</td>
+                </tr>
+                <tr class="bg-ivory/40">
+                  <td class="p-3 font-sans font-bold text-carbon">Intensitas Karbon Produk<br/><span class="font-normal text-[10px] text-carbon-light">(per 507,45 kg Porous Carbon)</span></td>
+                  <td class="p-3 text-crimson font-bold">2,83 kg CO₂/kg C</td>
+                  <td class="p-3 text-denim font-semibold">0,57 kg CO₂/kg C</td>
+                  <td class="p-3 font-extrabold text-emerald bg-emerald-subtle/40" id="tbl-c-intensity">0,48 kg CO₂/kg C</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Right: Chart.js Bar Chart -->
+          <div class="xl:col-span-5 bg-ivory p-4 rounded-xl border border-borderWarm">
+            <div class="text-xs font-extrabold text-denim uppercase mb-2 flex items-center justify-between">
+              <span>Grafik Perbandingan Emisi & BBM</span>
+              <span class="font-mono text-[10px] text-emerald">Update Dinamis</span>
+            </div>
+            <div class="h-[260px]">
+              <canvas id="logisticsComparisonChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================================================================= -->
+      <!-- MODUL 3: MESIN PREDIKTIF SMART SCHEDULE & FLUKTUASI MUSIMAN       -->
+      <!-- ================================================================= -->
+      <div id="module-schedule" class="bg-white rounded-2xl border border-borderWarm shadow-card p-5 sm:p-6 space-y-5">
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-borderWarm">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2.5 py-0.5 rounded bg-kraft text-white font-mono text-xs font-bold">MODUL 3</span>
+              <span class="text-xs font-mono font-semibold text-denim">PREDIKSI DERET WAKTU & PERINGATAN DINI WHATSAPP</span>
+            </div>
+            <h3 class="text-lg font-extrabold text-denim mt-1">
+              Mesin Prediktif Smart Schedule & Adaptasi Lonjakan Musiman
+            </h3>
+            <p class="text-xs text-carbon-light mt-0.5">
+              Memproyeksikan kurva laju pengisian karung di Kec. Lengkong (322 unit), Coblong (202 unit), dan Bandung Wetan (197 unit) untuk memicu pengingat WhatsApp otomatis sebelum karung meluap.
+            </p>
+          </div>
+
+          <!-- Interactive Holiday Surge Toggle Button -->
+          <div class="shrink-0">
+            <button id="btn-surge-toggle" onclick="toggleHolidaySurge()" class="px-4 py-2.5 rounded-xl bg-amber hover:bg-amber-dark text-carbon font-extrabold text-xs sm:text-sm flex items-center gap-2 shadow transition border border-kraft/40">
+              <i data-lucide="trending-up" class="w-4 h-4"></i>
+              <span id="surge-btn-label">Aktifkan Simulasi Lonjakan Hari Raya (+100% Pelanggan - KompasTV, 2023)</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Early Warning Banner (Revealed when Surge Mode is active) -->
+        <div id="surge-warning-banner" class="hidden p-4 rounded-xl bg-crimson-subtle border-2 border-crimson text-carbon flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div class="flex items-start gap-3">
+            <div class="p-2 rounded-lg bg-crimson text-white shrink-0 mt-0.5">
+              <i data-lucide="bell-ring" class="w-5 h-5 animate-bounce"></i>
+            </div>
+            <div class="text-xs space-y-1">
+              <div class="font-extrabold text-crimson text-sm uppercase tracking-wide">
+                PERINGATAN DINI MUSIMAN: LONJAKAN HARI RAYA (+100% KUNJUNGAN — KOMPASTV, 2023)
+              </div>
+              <p class="text-carbon leading-relaxed">
+                Laju timbulan harian klaster melonjak dari <strong>99,50 kg/hari</strong> menjadi <strong>199,00 kg/hari</strong>. Siklus kepenuhan karung 80% maju drastis dari <strong>Hari ke-24</strong> menjadi <strong>Hari ke-12</strong>. Sistem merekomendasikan pengiriman <em>Broadcast WhatsApp Pengingat</em> ke 721 kapster dan penambahan frekuensi gilir Viar Karya 150L.
+              </p>
+            </div>
+          </div>
+          <button onclick="triggerBroadcastWA()" class="px-4 py-2 rounded-lg bg-crimson hover:bg-red-800 text-white font-bold text-xs whitespace-nowrap shrink-0 shadow">
+            Kirim Broadcast WA (721 Mitra)
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+          <div class="lg:col-span-8 bg-ivory p-4 rounded-xl border border-borderWarm">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-extrabold text-denim uppercase">Kurva Proyeksi Keterisian Karung Rata-Rata Klaster (Siklus 30 Hari)</span>
+              <span id="schedule-mode-pill" class="px-2 py-0.5 rounded bg-emerald text-white font-mono text-[10px] font-bold">Mode Normal (Baseline)</span>
+            </div>
+            <div class="h-[290px]">
+              <canvas id="smartScheduleChart"></canvas>
+            </div>
+          </div>
+
+          <div class="lg:col-span-4 space-y-3">
+            <div class="p-4 rounded-xl bg-ivory border border-borderWarm space-y-2">
+              <div class="text-xs font-extrabold text-denim uppercase">Parameter Prediktif per Kecamatan</div>
+              <div class="space-y-2 font-mono text-xs pt-1">
+                <div class="p-2.5 rounded-lg bg-white border border-borderWarm flex justify-between items-center">
+                  <div>
+                    <div class="font-bold text-denim">Kec. Lengkong (322 Unit)</div>
+                    <div class="text-[10px] text-carbon-light" id="sched-lengkong-rate">Timbulan: 44,44 kg/hari</div>
+                  </div>
+                  <span class="px-2 py-0.5 rounded bg-denim-subtle text-denim font-bold" id="sched-lengkong-day">Penuh: Hr 22</span>
+                </div>
+
+                <div class="p-2.5 rounded-lg bg-white border border-borderWarm flex justify-between items-center">
+                  <div>
+                    <div class="font-bold text-emerald">Kec. Coblong (202 Unit)</div>
+                    <div class="text-[10px] text-carbon-light" id="sched-coblong-rate">Timbulan: 27,88 kg/hari</div>
+                  </div>
+                  <span class="px-2 py-0.5 rounded bg-emerald-subtle text-emerald font-bold" id="sched-coblong-day">Penuh: Hr 24</span>
+                </div>
+
+                <div class="p-2.5 rounded-lg bg-white border border-borderWarm flex justify-between items-center">
+                  <div>
+                    <div class="font-bold text-kraft">Kec. Bandung Wetan (197 Unit)</div>
+                    <div class="text-[10px] text-carbon-light" id="sched-bawet-rate">Timbulan: 27,19 kg/hari</div>
+                  </div>
+                  <span class="px-2 py-0.5 rounded bg-kraft-subtle text-kraft font-bold" id="sched-bawet-day">Penuh: Hr 25</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-denim text-ivory text-xs space-y-1.5">
+              <div class="font-mono font-bold text-amber flex items-center gap-1.5">
+                <i data-lucide="message-square-code" class="w-4 h-4"></i> Otomasisasi Trigger H-2
+              </div>
+              <p class="text-ivory/85 leading-relaxed">
+                Saat model memprediksi keterisian karung mencapai <strong>75% (H-2 sebelum 80%)</strong>, bot WhatsApp mengirimkan tautan cepat konfirmasi 1-klik agar kurir dapat menjadwalkan penjemputan tepat waktu.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================================================================= -->
+      <!-- MODUL 4: KONSOL AUDIT MICRO-HUB TPS 3R & HILIRISASI POROUS CARBON -->
+      <!-- ================================================================= -->
+      <div id="module-carbon" class="bg-white rounded-2xl border border-borderWarm shadow-card p-5 sm:p-6 space-y-6">
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-borderWarm">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2.5 py-0.5 rounded bg-carbon text-amber font-mono text-xs font-bold">MODUL 4</span>
+              <span class="text-xs font-mono font-semibold text-emerald">LAMPIRAN 1.D • NERACA MASSA & VERIFIKASI MUTU</span>
+            </div>
+            <h3 class="text-lg font-extrabold text-denim mt-1">
+              Konsol Audit Micro-Hub TPS 3R & Konversi Hilirisasi N,S Co-Doped Porous Carbon
+            </h3>
+            <p class="text-xs text-carbon-light mt-0.5">
+              Simulasi neraca massa dari bahan baku rambut kering, pemadatan <em>Hydraulic Baling</em>, pirolisis KOH (700–900 °C), hingga kapasitas energi superkapasitor.
+            </p>
+          </div>
+
+          <!-- Scale Toggle: Pilot Cluster (721) vs Citywide (3,037) -->
+          <div class="inline-flex rounded-xl bg-ivory p-1 border border-borderWarm shrink-0">
+            <button id="scale-btn-cluster" onclick="setMassBalanceScale('cluster')" class="px-3.5 py-2 rounded-lg text-xs font-extrabold bg-denim text-white shadow transition">
+              Klaster Percontohan (721 Unit)
+            </button>
+            <button id="scale-btn-city" onclick="setMassBalanceScale('city')" class="px-3.5 py-2 rounded-lg text-xs font-bold text-carbon-light hover:text-denim transition">
+              Skala Kota Bandung (3.037 Unit)
+            </button>
+          </div>
+        </div>
+
+        <!-- 4-Stage Mass Balance Flow Pipeline -->
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+          <!-- Stage 1: Raw Hair Input -->
+          <div class="p-4 rounded-xl bg-ivory border-2 border-kraft/40 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-[11px] font-mono font-bold text-kraft uppercase">Tahap 1 • Input Biomassa</span>
+              <i data-lucide="scissors" class="w-4 h-4 text-kraft"></i>
+            </div>
+            <div class="text-2xl font-mono font-extrabold text-carbon" id="mb-raw-monthly">2.985,00 kg/bln</div>
+            <div class="text-xs font-mono text-kraft font-semibold" id="mb-raw-daily">99,50 kg/hari (721 Barbershop)</div>
+            <div class="pt-2 border-t border-borderWarm text-[11px] font-mono text-carbon-light space-y-1">
+              <div class="flex justify-between">
+                <span>Densitas Curah:</span>
+                <span class="font-bold text-carbon">10,499 kg/m³</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Volume Lepas:</span>
+                <span class="font-bold text-crimson" id="mb-raw-vol">9,48 m³/hari</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Stage 2: Hydraulic Baling at TPS 3R -->
+          <div class="p-4 rounded-xl bg-ivory border-2 border-denim/40 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-[11px] font-mono font-bold text-denim uppercase">Tahap 2 • Hydraulic Baling</span>
+              <i data-lucide="minimize-2" class="w-4 h-4 text-denim"></i>
+            </div>
+            <div class="text-2xl font-mono font-extrabold text-denim" id="mb-bale-vol">≤ 3,60 m³/hari</div>
+            <div class="text-xs font-mono text-emerald font-semibold">Reduksi Volume ≥ 62% di TPS 3R</div>
+            <div class="pt-2 border-t border-borderWarm text-[11px] font-mono text-carbon-light space-y-1">
+              <div class="flex justify-between">
+                <span>Volume Bulanan:</span>
+                <span class="font-bold text-denim" id="mb-bale-monthly-vol">108,04 m³/bln</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Kadar Air Umpan:</span>
+                <span class="font-bold text-emerald">&lt; 12% (Dry Keratin)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Stage 3: KOH Activation & Pyrolysis -->
+          <div class="p-4 rounded-xl bg-carbon text-ivory border-2 border-amber/60 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-[11px] font-mono font-bold text-amber uppercase">Tahap 3 • Pirolisis & KOH</span>
+              <i data-lucide="flame" class="w-4 h-4 text-amber"></i>
+            </div>
+            <div class="text-2xl font-mono font-extrabold text-amber" id="mb-carbon-output">507,45 kg/bln</div>
+            <div class="text-xs font-mono text-ivory/90 font-semibold">N,S Co-Doped Porous Carbon</div>
+            <div class="pt-2 border-t border-white/15 text-[11px] font-mono text-ivory/75 space-y-1">
+              <div class="flex justify-between">
+                <span>Suhu & Yield (Ym):</span>
+                <span class="font-bold text-amber">700–900°C | 17%</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Luas BET (Verma 2022):</span>
+                <span class="font-bold text-emerald-300">1.466–2.957 m²/g</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Stage 4: Supercapacitor Energy Storage Valuation -->
+          <div class="p-4 rounded-xl bg-emerald-subtle border-2 border-emerald space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-[11px] font-mono font-bold text-emerald uppercase">Tahap 4 • Superkapasitor</span>
+              <i data-lucide="battery-charging" class="w-4 h-4 text-emerald"></i>
+            </div>
+            <div class="text-2xl font-mono font-extrabold text-emerald" id="mb-energy-monthly">19,49–27,05 kWh</div>
+            <div class="text-xs font-mono text-denim font-semibold">Kapasitas Simpan Energi Baru / Bln</div>
+            <div class="pt-2 border-t border-emerald/25 text-[11px] font-mono text-carbon space-y-1">
+              <div class="flex justify-between">
+                <span>Throughput (6,5k–10k siklus):</span>
+                <span class="font-bold text-emerald" id="mb-energy-lifecycle">126,69–270,50 MWh</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Kapasitansi Spesifik:</span>
+                <span class="font-bold text-denim">276 – 383 F/g</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Incoming Verification Table (Algorithm Appendix 1.D) -->
+        <div class="space-y-3 pt-2">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div>
+              <h4 class="text-sm font-extrabold text-denim flex items-center gap-2">
+                <i data-lucide="shield-alert" class="w-4 h-4 text-kraft"></i>
+                Tabel Verifikasi Laporan Masuk & Validasi Silang (Algoritma Lampiran 1.D)
+              </h4>
+              <p class="text-xs text-carbon-light">
+                Syarat pencairan Green Poin otomatis: Kemurnian AI ≥90%, Deviasi Koordinat GPS Haversine <code>Δd ≤ 50 m</code>, dan Deviasi Bobot Timbangan Kurir <code>|W_aktual - W_est| / W_est ≤ 30%</code>.
+              </p>
+            </div>
+            <span class="px-2.5 py-1 rounded bg-ivory border border-borderWarm font-mono text-xs font-bold text-denim" id="audit-table-count">
+              5 Laporan Dalam Antrean Audit
+            </span>
+          </div>
+
+          <div class="overflow-x-auto border border-borderWarm rounded-xl">
+            <table class="w-full text-left border-collapse text-xs">
+              <thead>
+                <tr class="bg-ivoryDark text-carbon font-mono text-[11px] border-b border-borderWarm">
+                  <th class="p-3">ID Karung & Mitra</th>
+                  <th class="p-3">Foto AI QC</th>
+                  <th class="p-3">Deviasi GPS Haversine</th>
+                  <th class="p-3">Estimasi vs Timbangan Kurir</th>
+                  <th class="p-3">Status Algoritma</th>
+                  <th class="p-3 text-right">Aksi Pengelola</th>
+                </tr>
+              </thead>
+              <tbody id="verification-table-body" class="divide-y divide-borderWarm font-mono">
+                <!-- Populated dynamically via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ===================================================================== -->
+  <!-- MODAL 1: WHATSAPP WEBHOOK ZERO-INSTALL PREVIEW                        -->
+  <!-- ===================================================================== -->
+  <div id="wa-webhook-modal" class="fixed inset-0 z-[90] hidden bg-carbon/70 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl border-2 border-emerald max-w-lg w-full overflow-hidden shadow-2xl">
+      <div class="bg-emerald text-white px-5 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <i data-lucide="message-circle" class="w-5 h-5"></i>
+          <div>
+            <h3 class="font-extrabold text-sm">WhatsApp Webhook Gateway (Zero-Install)</h3>
+            <p class="text-[11px] text-ivory/80 font-mono">Jalur Alternatif Kapster Tanpa Instalasi Aplikasi</p>
+          </div>
+        </div>
+        <button onclick="closeWaModal()" class="text-white/80 hover:text-white">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="p-5 space-y-4 text-xs">
+        <p class="text-carbon-light leading-relaxed">
+          Ketika kapster memindai QR Code pada karung menggunakan kamera bawaan HP, tautan dinamis otomatis membuka WhatsApp menuju nomor resmi <strong>HAIR-LOOP Bot (+62 811-2202-600)</strong> dengan format pesan terstruktur berikut:
+        </p>
+
+        <div class="bg-ivory p-4 rounded-xl border border-borderWarm font-mono text-xs space-y-1 text-carbon select-all" id="wa-message-preview">
+          <div class="text-emerald font-bold">#LAPOR_HAIRLOOP_BANDUNG</div>
+          <div>ID_MITRA: BDG-CBL-042 (Barber Hub Dago)</div>
+          <div>ID_KARUNG: QR-HL-2026-089</div>
+          <div>ESTIMASI_ISI: <span id="wa-modal-fill">80% (~3,0 kg - SIAP JEMPUT)</span></div>
+          <div>KONDISI_QC: KERING_BEBAS_TISU_SILET</div>
+          <div>KOORDINAT_GPS: -6.8898, 107.6130 (Kec. Coblong)</div>
+        </div>
+
+        <div class="p-3 rounded-xl bg-emerald-subtle border border-emerald/30 text-[11px] text-carbon">
+          <strong>Parser Webhook Otomatis:</strong> Server Control Tower membaca teks di atas menggunakan <em>Regex Webhook Parser</em>, membalas pesan konfirmasi dalam 2 detik, dan langsung memasukkan titik barbershop ke perhitungan rute <strong>Dynamic CVRP</strong>.
+        </div>
+
+        <div class="flex items-center justify-end gap-2 pt-2">
+          <button onclick="closeWaModal()" class="px-4 py-2 rounded-lg bg-ivory hover:bg-ivoryDark text-carbon font-bold">
+            Tutup
+          </button>
+          <button onclick="simulateSendWaWebhook()" class="px-4 py-2 rounded-lg bg-emerald hover:bg-emerald-dark text-white font-bold flex items-center gap-1.5">
+            <i data-lucide="send" class="w-3.5 h-3.5"></i>
+            <span>Simulasikan Kirim Pesan WA ke Server</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- MODAL 2: SCIENTIFIC PARAMETERS & REFERENCES (FOR ITB JUDGES)          -->
+  <!-- ===================================================================== -->
+  <div id="system-spec-modal" class="fixed inset-0 z-[90] hidden bg-carbon/70 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl border-2 border-denim max-w-2xl w-full overflow-hidden shadow-2xl max-h-[88vh] flex flex-col">
+      <div class="bg-denim text-white px-5 py-4 flex items-center justify-between shrink-0">
+        <div class="flex items-center gap-2.5">
+          <i data-lucide="book-open-check" class="w-5 h-5 text-amber"></i>
+          <div>
+            <h3 class="font-extrabold text-sm">Ringkasan Rumus, Parameter & Referensi Ilmiah HAIR-LOOP</h3>
+            <p class="text-[11px] text-ivory/80 font-mono">Tim PohanNeknik — SMAN 2 Bondowoso | Kompetisi IEFC ITB 2026</p>
+          </div>
+        </div>
+        <button onclick="closeSystemSpecModal()" class="text-white/80 hover:text-white">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="p-5 overflow-y-auto space-y-4 text-xs">
+        <div class="p-3.5 rounded-xl bg-ivory border border-borderWarm space-y-1.5">
+          <div class="font-extrabold text-denim">1. Parameter Populasi & Timbulan Limbah Rambut Kota Bandung</div>
+          <ul class="list-disc pl-4 space-y-1 text-carbon-light">
+            <li><strong>Klaster Percontohan (3 Kecamatan):</strong> 721 unit barbershop (Lengkong 322, Coblong 202, Bandung Wetan 197) menghasilkan <strong>99,50 kg/hari</strong> atau <strong>2.985,00 kg/bulan</strong>.</li>
+            <li><strong>Proyeksi Skala Kota Bandung:</strong> 3.037 unit barbershop menghasilkan <strong>419,10 kg/hari</strong> atau <strong>12.573,00 kg/bulan</strong>.</li>
+            <li><strong>Paradoks Densitas Curah:</strong> Densitas lepas rambut = <code>10,499 kg/m³</code> (volume lepas 9,48 m³/hari), direduksi ≥62% melalui <em>Hydraulic Baling</em> di TPS 3R menjadi ≤3,60 m³/hari.</li>
+          </ul>
+        </div>
+
+        <div class="p-3.5 rounded-xl bg-ivory border border-borderWarm space-y-1.5">
+          <div class="font-extrabold text-emerald">2. Model Dekarbonisasi Armada & Dynamic CVRP</div>
+          <ul class="list-disc pl-4 space-y-1 text-carbon-light">
+            <li><strong>Skenario A (Truk Konvensional Solar):</strong> 0,300 L/km × 1.800 km = 540 L Solar × 2,66 kg CO₂/L = <strong>1.436,40 kg CO₂/bln</strong>.</li>
+            <li><strong>Skenario B (Motor Roda Tiga Statis):</strong> 0,070 L/km × 1.800 km = 126 L Bensin × 2,29 kg CO₂/L = <strong>288,54 kg CO₂/bln</strong> (Reduksi 79,91%).</li>
+            <li><strong>Skenario C (HAIR-LOOP Dynamic CVRP):</strong> Penghematan jarak <strong>10,59%</strong> (Utamima et al., 2026) hingga <strong>21,51%</strong> (Maciel et al., 2025) memangkas jarak menjadi <code>1.412,82 – 1.609,38 km/bln</code> dan emisi menjadi <strong>226,48 – 257,98 kg CO₂/bln</strong> (Total reduksi emisi: <strong>82,04% – 84,23%</strong>).</li>
+          </ul>
+        </div>
+
+        <div class="p-3.5 rounded-xl bg-ivory border border-borderWarm space-y-1.5">
+          <div class="font-extrabold text-kraft">3. Konversi Hilirisasi N,S Co-Doped Porous Carbon (Verma et al., 2022)</div>
+          <ul class="list-disc pl-4 space-y-1 text-carbon-light">
+            <li><strong>Pirolisis & Aktivasi KOH (700–900 °C):</strong> Yield massa <code>Ym = 17%</code> mengubah 2.985 kg rambut menjadi <strong>507,45 kg/bln</strong> karbon berpori terdoping Nitrogen & Sulfur alami dari asam amino sistein keratin.</li>
+            <li><strong>Kinerja Elektrokimia Superkapasitor:</strong> Luas permukaan spesifik BET <code>1.466 – 2.957 m²/g</code>, kapasitas energi <strong>19,49 – 27,05 kWh/bln</strong>, dan energi tersimpan sepanjang siklus hidup (6.500–10.000 siklus) sebesar <strong>126,69 – 270,50 MWh</strong>.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="p-4 bg-ivory border-t border-borderWarm flex justify-end shrink-0">
+        <button onclick="closeSystemSpecModal()" class="px-4 py-2 rounded-lg bg-denim text-white font-bold text-xs">
+          Mengerti & Tutup
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- FOOTER                                                                -->
+  <!-- ===================================================================== -->
+  <footer class="bg-white border-t border-borderWarm mt-10 py-5 px-4 text-xs text-carbon-light">
+    <div class="max-w-[1440px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div class="flex items-center gap-2">
+        <span class="font-extrabold text-denim">HAIR-LOOP PWA v2.6</span>
+        <span>•</span>
+        <span>Tim PohanNeknik — SMAN 2 Bondowoso</span>
+      </div>
+      <div class="font-mono text-[11px] text-center sm:text-right">
+        Kompetisi Keilmuan Teknik Industri (IEFC) ITB 2026 • Lokus: Kec. Lengkong, Coblong & Bandung Wetan
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===================================================================== -->
+  <!-- APPLICATION JAVASCRIPT ENGINE (COMPLETE, NO OMISSIONS)                -->
+  <!-- ===================================================================== -->
+  <script>
+    // -----------------------------------------------------------------------
+    // 1. GLOBAL APPLICATION STATE
+    // -----------------------------------------------------------------------
+    const AppState = {
+      currentMode: 'overview',
+      currentBarberTab: 'home',
+      userPoints: 1240,
+      selectedFillPct: 80,
+      selectedFillKg: 3.0,
+      aiVerified: true,
+      aiPurity: 98.4,
+      courierArrived: false,
+      cvrpSavingsPct: 16.15,
+      holidaySurgeActive: false,
+      massBalanceScale: 'cluster', // 'cluster' (721) or 'city' (3037)
+      mapInitialized: false,
+      cvrpRouteActive: false
+    };
+
+    // 15 Authentic Barbershop GIS Nodes in Coblong, Bandung Wetan, and Lengkong
+    const BarbershopNodes = [
+      // 6 RED NODES (>=80% - SIAP JEMPUT)
+      {
+        id: 'BDG-CBL-042',
+        name: 'Barber Hub Dago (#042)',
+        kecamatan: 'Coblong',
+        address: 'Jl. Ir. H. Juanda No. 112, Dago',
+        qr: 'QR-HL-2026-089',
+        lat: -6.8898,
+        lng: 107.6130,
+        fillPct: 80,
+        estKg: 3.00,
+        status: 'RED',
+        lastReportDays: 24,
+        purity: 98.4
+      },
+      {
+        id: 'BDG-CBL-053',
+        name: 'Dipatiukur Fade Studio (#053)',
+        kecamatan: 'Coblong',
+        address: 'Jl. Dipatiukur No. 68, Lebakgede',
+        qr: 'QR-HL-2026-104',
+        lat: -6.8935,
+        lng: 107.6182,
+        fillPct: 92,
+        estKg: 3.50,
+        status: 'RED',
+        lastReportDays: 26,
+        purity: 97.8
+      },
+      {
+        id: 'BDG-CBL-091',
+        name: 'Cihampelas Razor Lab (#091)',
+        kecamatan: 'Coblong',
+        address: 'Jl. Cihampelas No. 145, Cipaganti',
+        qr: 'QR-HL-2026-118',
+        lat: -6.8912,
+        lng: 107.6042,
+        fillPct: 85,
+        estKg: 3.25,
+        status: 'RED',
+        lastReportDays: 25,
+        purity: 96.9
+      },
+      {
+        id: 'BDG-BWT-077',
+        name: 'Riau Gentlemen Grooming (#077)',
+        kecamatan: 'Bandung Wetan',
+        address: 'Jl. L. L. R.E. Martadinata No. 84',
+        qr: 'QR-HL-2026-062',
+        lat: -6.9068,
+        lng: 107.6195,
+        fillPct: 88,
+        estKg: 3.35,
+        status: 'RED',
+        lastReportDays: 23,
+        purity: 98.9
+      },
+      {
+        id: 'BDG-LKG-018',
+        name: 'Cukur Pria Lengkong Besar (#018)',
+        kecamatan: 'Lengkong',
+        address: 'Jl. Lengkong Besar No. 49, Paledang',
+        qr: 'QR-HL-2026-031',
+        lat: -6.9248,
+        lng: 107.6105,
+        fillPct: 95,
+        estKg: 3.60,
+        status: 'RED',
+        lastReportDays: 27,
+        purity: 97.2
+      },
+      {
+        id: 'BDG-LKG-112',
+        name: 'Buahbatu Classic Cut (#112)',
+        kecamatan: 'Lengkong',
+        address: 'Jl. Buah Batu No. 132, Cijagra',
+        qr: 'QR-HL-2026-142',
+        lat: -6.9332,
+        lng: 107.6218,
+        fillPct: 82,
+        estKg: 3.00,
+        status: 'RED',
+        lastReportDays: 22,
+        purity: 95.8
+      },
+
+      // 5 YELLOW NODES (50-79% - TERISI SEBAGIAN)
+      {
+        id: 'BDG-BWT-031',
+        name: 'Braga Heritage Barber (#031)',
+        kecamatan: 'Bandung Wetan',
+        address: 'Jl. Braga No. 58, Braga',
+        qr: 'QR-HL-2026-019',
+        lat: -6.9175,
+        lng: 107.6095,
+        fillPct: 68,
+        estKg: 2.55,
+        status: 'YELLOW',
+        lastReportDays: 18,
+        purity: 98.0
+      },
+      {
+        id: 'BDG-LKG-064',
+        name: 'Karapitan Crown Cut (#064)',
+        kecamatan: 'Lengkong',
+        address: 'Jl. Karapitan No. 72, Cikawao',
+        qr: 'QR-HL-2026-075',
+        lat: -6.9230,
+        lng: 107.6168,
+        fillPct: 60,
+        estKg: 2.25,
+        status: 'YELLOW',
+        lastReportDays: 16,
+        purity: 96.4
+      },
+      {
+        id: 'BDG-BWT-088',
+        name: 'Cisangkuy Trim House (#088)',
+        kecamatan: 'Bandung Wetan',
+        address: 'Jl. Cisangkuy No. 34, Citarum',
+        qr: 'QR-HL-2026-094',
+        lat: -6.9022,
+        lng: 107.6242,
+        fillPct: 72,
+        estKg: 2.70,
+        status: 'YELLOW',
+        lastReportDays: 19,
+        purity: 97.5
+      },
+      {
+        id: 'BDG-CBL-029',
+        name: 'Tubagus Ismail Barber (#029)',
+        kecamatan: 'Coblong',
+        address: 'Jl. Tubagus Ismail Raya No. 21',
+        qr: 'QR-HL-2026-044',
+        lat: -6.8835,
+        lng: 107.6208,
+        fillPct: 55,
+        estKg: 2.05,
+        status: 'YELLOW',
+        lastReportDays: 14,
+        purity: 98.1
+      },
+      {
+        id: 'BDG-LKG-105',
+        name: 'Burangrang Sharp Edge (#105)',
+        kecamatan: 'Lengkong',
+        address: 'Jl. Burangrang No. 39, Malabar',
+        qr: 'QR-HL-2026-129',
+        lat: -6.9265,
+        lng: 107.6245,
+        fillPct: 64,
+        estKg: 2.40,
+        status: 'YELLOW',
+        lastReportDays: 17,
+        purity: 97.0
+      },
+
+      // 3 GREEN NODES (<50% - AMAN)
+      {
+        id: 'BDG-LKG-014',
+        name: 'Sadakeling Neat Cut (#014)',
+        kecamatan: 'Lengkong',
+        address: 'Jl. Sadakeling No. 18, Burangrang',
+        qr: 'QR-HL-2026-011',
+        lat: -6.9295,
+        lng: 107.6285,
+        fillPct: 30,
+        estKg: 1.10,
+        status: 'GREEN',
+        lastReportDays: 8,
+        purity: 99.0
+      },
+      {
+        id: 'BDG-CBL-049',
+        name: 'Dago Atas Grooming (#049)',
+        kecamatan: 'Coblong',
+        address: 'Jl. Ir. H. Juanda No. 290, Dago',
+        qr: 'QR-HL-2026-058',
+        lat: -6.8758,
+        lng: 107.6192,
+        fillPct: 25,
+        estKg: 0.95,
+        status: 'GREEN',
+        lastReportDays: 6,
+        purity: 98.5
+      },
+      {
+        id: 'BDG-BWT-072',
+        name: 'Tamansari Studio Cut (#072)',
+        kecamatan: 'Bandung Wetan',
+        address: 'Jl. Tamansari No. 42, Tamansari',
+        qr: 'QR-HL-2026-081',
+        lat: -6.9015,
+        lng: 107.6085,
+        fillPct: 40,
+        estKg: 1.50,
+        status: 'GREEN',
+        lastReportDays: 11,
+        purity: 97.7
+      },
+
+      // 1 GREY NODE (>30 HARI TANPA LAPORAN - PERLU AUDIT)
+      {
+        id: 'BDG-LKG-119',
+        name: 'Pasirluyu Vintage Barber (#119)',
+        kecamatan: 'Lengkong',
+        address: 'Jl. Talaga Bodas No. 40, Lingkar Selatan',
+        qr: 'QR-HL-2026-150',
+        lat: -6.9310,
+        lng: 107.6140,
+        fillPct: 15,
+        estKg: 0.55,
+        status: 'GREY',
+        lastReportDays: 34,
+        purity: 91.0
+      }
+    ];
+
+    // Micro-Hub TPS 3R Saling Asih / Bank Sampah Induk Consolidation Point
+    const MicroHubDepot = {
+      name: 'Micro-Hub TPS 3R Saling Asih / Bank Sampah Induk Bandung',
+      lat: -6.9085,
+      lng: 107.6210,
+      address: 'Pusat Konsolidasi & Hydraulic Baling Klaster Bandung'
+    };
+
+    // Incoming Verification Queue Data (Module 4 Table - Appendix 1.D)
+    const VerificationRecords = [
+      {
+        qr: 'QR-HL-2026-089',
+        barberName: 'Barber Hub Dago (#042)',
+        kecamatan: 'Coblong',
+        purity: 98.4,
+        gpsDeltaM: 4.2,
+        estKg: 3.00,
+        actualKg: 3.10,
+        weightDeltaPct: 3.3,
+        status: 'VALID',
+        points: 155,
+        approved: false
+      },
+      {
+        qr: 'QR-HL-2026-031',
+        barberName: 'Cukur Pria Lengkong Besar (#018)',
+        kecamatan: 'Lengkong',
+        purity: 97.2,
+        gpsDeltaM: 11.8,
+        estKg: 3.60,
+        actualKg: 3.48,
+        weightDeltaPct: 3.3,
+        status: 'VALID',
+        points: 174,
+        approved: false
+      },
+      {
+        qr: 'QR-HL-2026-062',
+        barberName: 'Riau Gentlemen Grooming (#077)',
+        kecamatan: 'Bandung Wetan',
+        purity: 98.9,
+        gpsDeltaM: 6.5,
+        estKg: 3.35,
+        actualKg: 3.40,
+        weightDeltaPct: 1.5,
+        status: 'VALID',
+        points: 170,
+        approved: true
+      },
+      {
+        qr: 'QR-HL-2026-104',
+        barberName: 'Dipatiukur Fade Studio (#053)',
+        kecamatan: 'Coblong',
+        purity: 97.8,
+        gpsDeltaM: 18.4,
+        estKg: 3.50,
+        actualKg: 3.30,
+        weightDeltaPct: 5.7,
+        status: 'VALID',
+        points: 165,
+        approved: false
+      },
+      {
+        qr: 'QR-HL-2026-150',
+        barberName: 'Pasirluyu Vintage Barber (#119)',
+        kecamatan: 'Lengkong',
+        purity: 84.5,
+        gpsDeltaM: 68.0,
+        estKg: 3.00,
+        actualKg: 1.85,
+        weightDeltaPct: 38.3,
+        status: 'FLAGGED',
+        points: 0,
+        approved: false
+      }
+    ];
+
+    // -----------------------------------------------------------------------
+    // 2. TOP BAR ROLE SWITCHER & ONE-CLICK LOGIN
+    // -----------------------------------------------------------------------
+    function switchMode(mode) {
+      AppState.currentMode = mode;
+
+      // Toggle sections
+      const views = ['overview', 'barber', 'tower'];
+      views.forEach(v => {
+        const el = document.getElementById(`view-${v}`);
+        if (el) {
+          if (v === mode) el.classList.remove('hidden');
+          else el.classList.add('hidden');
+        }
+      });
+
+      // Style active button in navbar
+      views.forEach(v => {
+        const btn = document.getElementById(`nav-btn-${v}`);
+        if (!btn) return;
+        if (v === mode) {
+          btn.className = 'role-tab-btn relative flex items-center gap-2 px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all whitespace-nowrap bg-amber text-carbon shadow';
+        } else {
+          btn.className = 'role-tab-btn relative flex items-center gap-2 px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all whitespace-nowrap text-ivory/85 hover:text-white hover:bg-white/10';
+        }
+      });
+
+      // If entering Control Tower, initialize or resize Leaflet map & charts
+      if (mode === 'tower') {
+        setTimeout(() => {
+          initLeafletMap();
+          if (leafletMap) {
+            leafletMap.invalidateSize();
+          }
+          initOrUpdateCharts();
+        }, 80);
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function demoLogin(targetRole) {
+      switchMode(targetRole);
+      if (targetRole === 'barber') {
+        showToast(
+          'Login Mitra Barbershop #042 Berhasil',
+          'Selamat datang, Barber Hub Dago (Kec. Coblong). Karung QR-HL-2026-089 saat ini terisi 80% (~3,0 kg).'
+        );
+      } else {
+        showToast(
+          'Login Dispatcher Control Tower Berhasil',
+          'Konsol GIS Micro-Hub TPS 3R Saling Asih aktif. Terdapat 6 titik Barbershop berstatus Merah (≥80%) siap dioptimasi.'
+        );
+      }
+    }
+
+    // -----------------------------------------------------------------------
+    // 3. MODE 2: SMARTPHONE PWA TABS & INTERACTIVE WORKFLOWS
+    // -----------------------------------------------------------------------
+    function switchBarberTab(tabName) {
+      AppState.currentBarberTab = tabName;
+      const tabs = ['home', 'scan', 'track', 'rewards', 'profile'];
+
+      tabs.forEach(t => {
+        const panel = document.getElementById(`barber-tab-${t}`);
+        const navBtn = document.getElementById(`bnav-${t}`);
+        if (panel) {
+          if (t === tabName) panel.classList.remove('hidden');
+          else panel.classList.add('hidden');
+        }
+        if (navBtn) {
+          if (t === tabName) {
+            navBtn.className = 'bnav-item flex flex-col items-center justify-center py-1 rounded-xl text-denim bg-denim-subtle font-bold';
+          } else {
+            navBtn.className = 'bnav-item flex flex-col items-center justify-center py-1 rounded-xl text-carbon-light hover:text-denim';
+          }
+        }
+      });
+
+      const scrollBox = document.getElementById('phone-scroll-container');
+      if (scrollBox) scrollBox.scrollTop = 0;
+    }
+
+    function selectFillLevel(pct, kg) {
+      AppState.selectedFillPct = pct;
+      AppState.selectedFillKg = kg;
+
+      // Update 4 buttons styling
+      const levels = [25, 50, 80, 100];
+      levels.forEach(lvl => {
+        const btn = document.getElementById(`fill-btn-${lvl}`);
+        if (!btn) return;
+        const isUrgent = lvl >= 80;
+        if (lvl === pct) {
+          if (isUrgent) {
+            btn.className = 'fill-level-btn p-2.5 rounded-xl border-2 border-crimson bg-crimson-subtle text-left transition ring-2 ring-crimson/30';
+          } else {
+            btn.className = 'fill-level-btn p-2.5 rounded-xl border-2 border-denim bg-denim-subtle text-left transition ring-2 ring-denim/20';
+          }
+        } else {
+          btn.className = 'fill-level-btn p-2.5 rounded-xl border border-borderWarm bg-ivory text-left transition hover:bg-ivoryDark/60';
+        }
+      });
+
+      // Update status banner in Tab 2 & Home progress bar in Tab 1
+      const banner = document.getElementById('scan-status-banner');
+      const statusText = document.getElementById('scan-status-text');
+      const massBadge = document.getElementById('scan-mass-badge');
+      const homeBadge = document.getElementById('home-sack-badge');
+      const homeMassLabel = document.getElementById('home-sack-mass-label');
+      const homeProgress = document.getElementById('home-sack-progress');
+      const waModalFill = document.getElementById('wa-modal-fill');
+
+      const kgFormatted = kg.toFixed(1).replace('.', ',');
+
+      if (pct >= 80) {
+        banner.className = 'p-3 rounded-xl bg-crimson text-white font-mono text-xs font-bold flex items-center justify-between shadow-sm animate-pulse';
+        statusText.textContent = 'SIAP JEMPUT (Masuk Antrean CVRP)';
+        massBadge.textContent = `~${kgFormatted} kg`;
+
+        homeBadge.className = 'px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-crimson text-white animate-pulse';
+        homeBadge.textContent = `${pct}% • SIAP JEMPUT`;
+        homeProgress.className = 'h-full bg-crimson rounded-full transition-all duration-500';
+      } else {
+        banner.className = 'p-3 rounded-xl bg-emerald text-white font-mono text-xs font-bold flex items-center justify-between shadow-sm';
+        statusText.textContent = 'AKUMULASI AMAN DI TEMPAT (<80%)';
+        massBadge.textContent = `~${kgFormatted} kg`;
+
+        homeBadge.className = 'px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-emerald-subtle text-emerald border border-emerald/30';
+        homeBadge.textContent = `${pct}% • AMAN`;
+        homeProgress.className = 'h-full bg-emerald rounded-full transition-all duration-500';
+      }
+
+      homeMassLabel.textContent = `${pct}% (~${kgFormatted} kg / 3,8 kg)`;
+      homeProgress.style.width = `${pct}%`;
+      if (waModalFill) {
+        waModalFill.textContent = `${pct}% (~${kgFormatted} kg - ${pct >= 80 ? 'SIAP JEMPUT' : 'AKUMULASI AMAN'})`;
+      }
+    }
+
+    function rescanQRAnimation() {
+      showToast('Pemindaian QR Berhasil', 'Kode Karung QR-HL-2026-089 (Barber Hub Dago #042) tervalidasi.');
+    }
+
+    function triggerAiPhotoScan() {
+      const btnLabel = document.getElementById('btn-ai-photo-label');
+      const resultBox = document.getElementById('ai-scan-result-box');
+      if (btnLabel) btnLabel.textContent = 'Memindai Serat Rambut & Kontaminan...';
+      if (resultBox) resultBox.classList.add('opacity-50');
+
+      setTimeout(() => {
+        if (btnLabel) btnLabel.textContent = 'Ambil Foto Permukaan Karung (Terverifikasi 98,4%)';
+        if (resultBox) resultBox.classList.remove('opacity-50');
+        showToast(
+          'LOLOS PRA-VERIFIKASI MUTU (98,4%)',
+          'Detektor AI Visual mengonfirmasi rambut kering murni: Bebas Tisu/Kapas, Bebas Plastik Kemasan, Kondisi Kering.'
+        );
+      }, 450);
+    }
+
+    function submitPickupToControlTower() {
+      const pct = AppState.selectedFillPct;
+      const kg = AppState.selectedFillKg;
+      const kgStr = kg.toFixed(2).replace('.', ',');
+
+      // Update Barber Hub Dago node in BarbershopNodes
+      const dagoNode = BarbershopNodes.find(n => n.id === 'BDG-CBL-042');
+      if (dagoNode) {
+        dagoNode.fillPct = pct;
+        dagoNode.estKg = kg;
+        dagoNode.status = pct >= 80 ? 'RED' : (pct >= 50 ? 'YELLOW' : 'GREEN');
+      }
+
+      // Update or unshift top record in VerificationRecords
+      const existingIdx = VerificationRecords.findIndex(r => r.qr === 'QR-HL-2026-089');
+      const newRecord = {
+        qr: 'QR-HL-2026-089',
+        barberName: 'Barber Hub Dago (#042) [BARU]',
+        kecamatan: 'Coblong',
+        purity: 98.4,
+        gpsDeltaM: 4.2,
+        estKg: kg,
+        actualKg: +(kg * 1.03).toFixed(2),
+        weightDeltaPct: 3.0,
+        status: 'VALID',
+        points: Math.round(kg * 50),
+        approved: false
+      };
+      if (existingIdx !== -1) {
+        VerificationRecords[existingIdx] = newRecord;
+      } else {
+        VerificationRecords.unshift(newRecord);
+      }
+
+      renderVerificationTable();
+      renderGisNodeList('ALL');
+      updateUrgentCounters();
+
+      if (AppState.mapInitialized) {
+        renderMapMarkers('ALL');
+      }
+
+      showToast(
+        'Laporan Masuk ke Antrean Control Tower!',
+        `Karung QR-HL-2026-089 (${pct}% / ~${kgStr} kg) dari Barber Hub Dago telah dijadwalkan pada Rute CVRP #04.`
+      );
+
+      // Switch to Tracking tab inside smartphone so user sees live status
+      setTimeout(() => {
+        switchBarberTab('track');
+      }, 600);
+    }
+
+    function simulateCourierArrival() {
+      if (AppState.courierArrived) {
+        showToast('Penjemputan Telah Selesai', 'Karung QR-HL-2026-089 sudah ditimbang (3,10 kg) dan poin telah ditambahkan.');
+        return;
+      }
+      AppState.courierArrived = true;
+      const earnedPts = 155;
+      AppState.userPoints += earnedPts;
+      updatePointsDisplay();
+
+      // Update Timeline UI
+      const step3Ind = document.getElementById('step3-indicator');
+      const step4Ind = document.getElementById('step4-indicator');
+      const step4Title = document.getElementById('step4-title');
+      const step4Desc = document.getElementById('step4-desc');
+      const etaBadge = document.getElementById('track-eta-badge');
+      const btnSim = document.getElementById('btn-simulate-arrival');
+
+      if (step3Ind) {
+        step3Ind.className = 'w-6 h-6 rounded-full bg-emerald text-white flex items-center justify-center text-xs shrink-0 mt-0.5';
+        step3Ind.textContent = '✓';
+      }
+      if (step4Ind) {
+        step4Ind.className = 'w-6 h-6 rounded-full bg-emerald text-white flex items-center justify-center text-xs shrink-0 mt-0.5';
+        step4Ind.textContent = '✓';
+      }
+      if (step4Title) {
+        step4Title.className = 'text-xs font-extrabold text-emerald';
+        step4Title.textContent = '4. Selesai Ditimbang (3,10 kg) & Poin Masuk (+155 Pt)';
+      }
+      if (step4Desc) {
+        step4Desc.textContent = 'Deviasi bobot 3,3% (≤30% Valid) • Karung baru QR-HL-2026-192 diserahkan.';
+      }
+      if (etaBadge) {
+        etaBadge.className = 'px-2.5 py-1 rounded-full bg-emerald text-white font-mono text-[11px] font-bold';
+        etaBadge.textContent = 'SELESAI TIMBANG';
+      }
+      if (btnSim) {
+        btnSim.textContent = '✓ Penjemputan & Timbangan Selesai (+155 Poin)';
+        btnSim.className = 'w-full py-2 px-3 rounded-xl bg-emerald text-white font-bold text-xs flex items-center justify-center gap-1.5';
+      }
+
+      // Prepend row to Profile History Table
+      const tbody = document.getElementById('barber-history-tbody');
+      if (tbody) {
+        const tr = document.createElement('tr');
+        tr.className = 'bg-emerald-subtle/50';
+        tr.innerHTML = `
+          <td class="py-2 font-bold text-emerald">14 Okt 26</td>
+          <td class="py-2 font-bold text-carbon">3,10 kg</td>
+          <td class="py-2"><span class="px-1.5 py-0.5 rounded bg-emerald text-white text-[10px]">Lolos 98,4%</span></td>
+          <td class="py-2 text-right font-extrabold text-emerald">+155</td>
+        `;
+        tbody.prepend(tr);
+      }
+
+      showToast(
+        'Timbangan Kurir Terverifikasi (+155 Poin)',
+        'Bobot aktual 3,10 kg dicatat oleh Kang Asep (Viar Karya 150L). Saldo poin Anda kini ' + AppState.userPoints.toLocaleString('id-ID') + ' Poin.'
+      );
+    }
+
+    function redeemReward(itemName, costPts) {
+      if (AppState.userPoints < costPts) {
+        showToast('Saldo Poin Tidak Mencukupi', `Anda membutuhkan ${costPts} Poin untuk menukar ${itemName}.`);
+        return;
+      }
+      AppState.userPoints -= costPts;
+      updatePointsDisplay();
+      showToast(
+        'Penukaran Insentif Berhasil!',
+        `${itemName} berhasil diklaim (-${costPts} Poin). Voucher telah dikirim ke akun Barber Hub Dago.`
+      );
+    }
+
+    function updatePointsDisplay() {
+      const formattedPts = AppState.userPoints.toLocaleString('id-ID');
+      const rupiahVal = (AppState.userPoints * 50).toLocaleString('id-ID');
+
+      const elHeader = document.getElementById('phone-header-points');
+      const elHomePts = document.getElementById('home-points-display');
+      const elHomeRp = document.getElementById('home-rupiah-display');
+      const elLeader = document.getElementById('leaderboard-user-pts');
+      const elCat = document.getElementById('catalog-points-Sub');
+
+      if (elHeader) elHeader.textContent = `${formattedPts} Poin`;
+      if (elHomePts) elHomePts.textContent = `${formattedPts} Poin`;
+      if (elHomeRp) elHomeRp.textContent = `≈ Rp${rupiahVal} Retribusi`;
+      if (elLeader) elLeader.textContent = `${formattedPts} Pt`;
+      if (elCat) elCat.textContent = `Saldo: ${formattedPts} Pt`;
+    }
+
+    // -----------------------------------------------------------------------
+    // 4. MODE 3 — MODULE 1: LEAFLET GIS MAP & DYNAMIC CVRP SOLVER
+    // -----------------------------------------------------------------------
+    let leafletMap = null;
+    let markersLayerGroup = null;
+    let cvrpPolylineLayer = null;
+
+    function initLeafletMap() {
+      if (AppState.mapInitialized && leafletMap) return;
+
+      const mapEl = document.getElementById('bandung-gis-map');
+      if (!mapEl) return;
+
+      leafletMap = L.map('bandung-gis-map', {
+        center: [-6.905, 107.615],
+        zoom: 13,
+        zoomControl: true
+      });
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; OpenStreetMap contributors | HAIR-LOOP GIS Bandung'
+      }).addTo(leafletMap);
+
+      markersLayerGroup = L.layerGroup().addTo(leafletMap);
+      cvrpPolylineLayer = L.layerGroup().addTo(leafletMap);
+
+      AppState.mapInitialized = true;
+      renderMapMarkers('ALL');
+      renderGisNodeList('ALL');
+    }
+
+    function renderMapMarkers(filterStatus) {
+      if (!markersLayerGroup) return;
+      markersLayerGroup.clearLayers();
+
+      // 1. Add Micro-Hub TPS 3R Saling Asih Depot Marker
+      const hubIcon = L.divIcon({
+        className: 'custom-hub-marker',
+        html: `
+          <div style="background:#1B365D;color:#FFFFFF;border:2px solid #D97706;border-radius:10px;padding:4px 8px;font-family:'JetBrains Mono',monospace;font-weight:800;font-size:11px;box-shadow:0 4px 12px rgba(0,0,0,0.35);white-space:nowrap;display:flex;align-items:center;gap:4px;">
+            <span>★ TPS 3R HUB</span>
+          </div>
+        `,
+        iconSize: [110, 28],
+        iconAnchor: [55, 14]
+      });
+
+      const hubMarker = L.marker([MicroHubDepot.lat, MicroHubDepot.lng], { icon: hubIcon });
+      hubMarker.bindPopup(`
+        <div class="space-y-1">
+          <div class="text-[10px] font-mono font-bold text-amber-dark uppercase">Pusat Konsolidasi & Baling</div>
+          <div class="font-extrabold text-sm text-denim">${MicroHubDepot.name}</div>
+          <div class="text-xs text-carbon-light">${MicroHubDepot.address}</div>
+          <div class="pt-1 mt-1 border-t border-borderWarm font-mono text-[11px] text-emerald font-bold">
+            Kapasitas Hydraulic Baler: Reduksi Volume ≥62%
+          </div>
+        </div>
+      `);
+      hubMarker.addTo(markersLayerGroup);
+
+      // 2. Add Barbershop Markers
+      BarbershopNodes.forEach((node) => {
+        if (filterStatus !== 'ALL' && node.status !== filterStatus) return;
+
+        let bgColor = '#1E5631'; // GREEN
+        let badgeLabel = 'AMAN (<50%)';
+        let pulseHtml = '';
+
+        if (node.status === 'RED') {
+          bgColor = '#B91C1C';
+          badgeLabel = 'SIAP JEMPUT (≥80%)';
+          pulseHtml = '<div class="marker-pulse-ring"></div>';
+        } else if (node.status === 'YELLOW') {
+          bgColor = '#D97706';
+          badgeLabel = 'TERISI SEBAGIAN (50–79%)';
+        } else if (node.status === 'GREY') {
+          bgColor = '#6B7280';
+          badgeLabel = 'PERLU AUDIT (>30 HR)';
+        }
+
+        const markerIcon = L.divIcon({
+          className: 'custom-barber-icon',
+          html: `
+            <div style="position:relative;width:30px;height:30px;display:flex;align-items:center;justify-content:center;">
+              ${pulseHtml}
+              <div style="position:relative;z-index:2;width:28px;height:28px;border-radius:9999px;background:${bgColor};border:2.5px solid #FFFFFF;color:#FFFFFF;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 8px rgba(0,0,0,0.3);">
+                ${node.fillPct}%
+              </div>
+            </div>
+          `,
+          iconSize: [30, 30],
+          iconAnchor: [15, 15]
+        });
+
+        const m = L.marker([node.lat, node.lng], { icon: markerIcon });
+        m.bindPopup(`
+          <div class="space-y-1.5 min-w-[210px]">
+            <div class="flex items-center justify-between gap-2">
+              <span class="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold text-white" style="background:${bgColor}">${badgeLabel}</span>
+              <span class="font-mono text-[10px] text-carbon-light">${node.id}</span>
+            </div>
+            <div class="font-extrabold text-sm text-carbon">${node.name}</div>
+            <div class="text-xs text-carbon-light">${node.address} (Kec. ${node.kecamatan})</div>
+            <div class="bg-ivory p-2 rounded border border-borderWarm font-mono text-[11px] space-y-0.5">
+              <div>ID Karung: <strong>${node.qr}</strong></div>
+              <div>Keterisian: <strong>${node.fillPct}% (~${node.estKg.toFixed(2).replace('.', ',')} kg)</strong></div>
+              <div>Kemurnian AI: <strong>${node.purity}%</strong> • Siklus: Hr ke-${node.lastReportDays}</div>
+            </div>
+          </div>
+        `);
+        m.addTo(markersLayerGroup);
+      });
+    }
+
+    function filterMapNodes(status) {
+      renderMapMarkers(status);
+      renderGisNodeList(status);
+    }
+
+    function focusNodeOnMap(nodeId) {
+      const node = BarbershopNodes.find(n => n.id === nodeId);
+      if (!node || !leafletMap) return;
+      leafletMap.setView([node.lat, node.lng], 15, { animate: true });
+    }
+
+    function renderGisNodeList(filterStatus) {
+      const container = document.getElementById('gis-node-list');
+      if (!container) return;
+      container.innerHTML = '';
+
+      const filtered = BarbershopNodes.filter(n => filterStatus === 'ALL' || n.status === filterStatus);
+
+      filtered.forEach(node => {
+        let pillClass = 'bg-emerald-subtle text-emerald';
+        if (node.status === 'RED') pillClass = 'bg-crimson text-white';
+        else if (node.status === 'YELLOW') pillClass = 'bg-amber-subtle text-amber-dark';
+        else if (node.status === 'GREY') pillClass = 'bg-gray-200 text-gray-700';
+
+        const item = document.createElement('div');
+        item.className = 'p-2.5 rounded-xl bg-white border border-borderWarm hover:border-denim cursor-pointer transition flex items-center justify-between gap-2';
+        item.onclick = () => focusNodeOnMap(node.id);
+        item.innerHTML = `
+          <div>
+            <div class="font-bold text-carbon text-xs">${node.name}</div>
+            <div class="font-mono text-[10px] text-carbon-light">Kec. ${node.kecamatan} • ${node.qr}</div>
+          </div>
+          <div class="text-right shrink-0">
+            <span class="px-2 py-0.5 rounded font-mono text-[10px] font-bold ${pillClass}">
+              ${node.fillPct}% (${node.estKg.toFixed(1).replace('.', ',')} kg)
+            </span>
+          </div>
+        `;
+        container.appendChild(item);
+      });
+    }
+
+    // Haversine helper in km
+    function haversineKm(lat1, lon1, lat2, lon2) {
+      const R = 6371;
+      const dLat = (lat2 - lat1) * Math.PI / 180;
+      const dLon = (lon2 - lon1) * Math.PI / 180;
+      const a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+      return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    }
+
+    function runDynamicCVRP() {
+      initLeafletMap();
+      if (!cvrpPolylineLayer) return;
+      cvrpPolylineLayer.clearLayers();
+
+      // Filter only RED nodes (>=80%)
+      const urgentNodes = BarbershopNodes.filter(n => n.status === 'RED');
+      if (urgentNodes.length === 0) return;
+
+      // Nearest-Neighbor heuristic starting from MicroHubDepot
+      const unvisited = [...urgentNodes];
+      const orderedRoute = [];
+      let currLat = MicroHubDepot.lat;
+      let currLng = MicroHubDepot.lng;
+      let totalRoadKm = 0;
+      let totalLoadKg = 0;
+
+      while (unvisited.length > 0) {
+        let bestIdx = 0;
+        let bestDist = Infinity;
+        for (let i = 0; i < unvisited.length; i++) {
+          const d = haversineKm(currLat, currLng, unvisited[i].lat, unvisited[i].lng);
+          if (d < bestDist) {
+            bestDist = d;
+            bestIdx = i;
+          }
+        }
+        const nextNode = unvisited.splice(bestIdx, 1)[0];
+        // Multiply straight-line Haversine by 1.32 urban road circuity factor for Bandung
+        totalRoadKm += bestDist * 1.32;
+        totalLoadKg += nextNode.estKg;
+        orderedRoute.push(nextNode);
+        currLat = nextNode.lat;
+        currLng = nextNode.lng;
+      }
+
+      // Return leg to Micro-Hub TPS 3R
+      totalRoadKm += haversineKm(currLat, currLng, MicroHubDepot.lat, MicroHubDepot.lng) * 1.32;
+
+      // Build polyline coordinates
+      const latlngs = [
+        [MicroHubDepot.lat, MicroHubDepot.lng],
+        ...orderedRoute.map(n => [n.lat, n.lng]),
+        [MicroHubDepot.lat, MicroHubDepot.lng]
+      ];
+
+      // Draw outer glow & main Forest Emerald polyline
+      L.polyline(latlngs, {
+        color: '#FFFFFF',
+        weight: 8,
+        opacity: 0.85
+      }).addTo(cvrpPolylineLayer);
+
+      const routeLine = L.polyline(latlngs, {
+        color: '#1E5631',
+        weight: 4.5,
+        opacity: 1,
+        dashArray: '10, 6'
+      }).addTo(cvrpPolylineLayer);
+
+      // Add sequence number badges along the stops
+      orderedRoute.forEach((stop, idx) => {
+        const stopBadge = L.divIcon({
+          className: 'cvrp-stop-num',
+          html: `
+            <div style="background:#1B365D;color:#FEF3C7;border:2px solid #D97706;width:22px;height:22px;border-radius:50%;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,0.4);">
+              ${idx + 1}
+            </div>
+          `,
+          iconSize: [22, 22],
+          iconAnchor: [-10, 24]
+        });
+        L.marker([stop.lat, stop.lng], { icon: stopBadge }).addTo(cvrpPolylineLayer);
+      });
+
+      leafletMap.fitBounds(routeLine.getBounds(), { padding: [35, 35] });
+
+      // Update CVRP metrics card
+      const fuelLiters = totalRoadKm * 0.070;
+      const durationMin = Math.round((totalRoadKm / 22) * 60 + orderedRoute.length * 4.5);
+
+      document.getElementById('cvrp-badge-state').className = 'px-2 py-0.5 rounded bg-emerald text-white font-mono text-[10px] font-bold';
+      document.getElementById('cvrp-badge-state').textContent = 'Rute Optimal Aktif';
+      document.getElementById('cvrp-loop-km').textContent = `${totalRoadKm.toFixed(2).replace('.', ',')} km`;
+      document.getElementById('cvrp-total-load').textContent = `${totalLoadKg.toFixed(2).replace('.', ',')} kg / 150L`;
+      document.getElementById('cvrp-fuel-liters').textContent = `${fuelLiters.toFixed(2).replace('.', ',')} L Bensin`;
+      document.getElementById('cvrp-duration').textContent = `${durationMin} Menit`;
+
+      const seqHtml = orderedRoute.map((n, i) => `<strong>${i + 1}.</strong> ${n.name} (${n.fillPct}%)`).join(' → ');
+      document.getElementById('cvrp-sequence-box').innerHTML = `
+        <div class="text-emerald font-bold mb-1">Urutan Rute Optimal (Depot TPS 3R → ${orderedRoute.length} Titik Merah → Depot):</div>
+        <div>TPS 3R Saling Asih → ${seqHtml} → TPS 3R Saling Asih</div>
+      `;
+
+      showToast(
+        'Optimasi Rute Dynamic CVRP Selesai!',
+        `Rute menghubungkan ${orderedRoute.length} Barbershop Merah (Total muatan ${totalLoadKg.toFixed(1).replace('.', ',')} kg, jarak siklus ${totalRoadKm.toFixed(2).replace('.', ',')} km).`
+      );
+    }
+
+    function resetCVRPRoute() {
+      if (cvrpPolylineLayer) cvrpPolylineLayer.clearLayers();
+      if (leafletMap) leafletMap.setView([-6.905, 107.615], 13);
+      document.getElementById('cvrp-badge-state').className = 'px-2 py-0.5 rounded bg-amber-subtle text-amber-dark font-mono text-[10px] font-bold';
+      document.getElementById('cvrp-badge-state').textContent = 'Siap Optimasi';
+      document.getElementById('cvrp-sequence-box').innerHTML = 'Rute direset. Klik tombol <strong>"Jalankan Optimasi Rute Dynamic CVRP"</strong> untuk menggambar polilin rute optimal.';
+    }
+
+    function updateUrgentCounters() {
+      const redNodes = BarbershopNodes.filter(n => n.status === 'RED');
+      const totalRedKg = redNodes.reduce((acc, n) => acc + n.estKg, 0);
+
+      const badgeNav = document.getElementById('tower-notif-badge');
+      const overviewUrgent = document.getElementById('overview-urgent-count');
+      const kpiUrgent = document.getElementById('tower-kpi-urgent');
+      const legendRed = document.getElementById('legend-red-count');
+
+      if (badgeNav) badgeNav.textContent = `${redNodes.length} Siap`;
+      if (overviewUrgent) overviewUrgent.textContent = `${redNodes.length} Titik (≥80%)`;
+      if (kpiUrgent) kpiUrgent.textContent = `${redNodes.length} Unit (${totalRedKg.toFixed(1).replace('.', ',')} kg)`;
+      if (legendRed) legendRed.textContent = `${redNodes.length} Titik`;
+    }
+
+    // -----------------------------------------------------------------------
+    // 5. MODE 3 — MODULE 2 & 3: CHART.JS & LOGISTICS CALCULATOR
+    // -----------------------------------------------------------------------
+    let logisticsChartInstance = null;
+    let scheduleChartInstance = null;
+
+    function setCvrpSlider(val) {
+      const slider = document.getElementById('cvrp-savings-slider');
+      if (slider) {
+        slider.value = val;
+        updateLogisticsCalculator(val);
+      }
+    }
+
+    function updateLogisticsCalculator(savingsPctInput) {
+      const sPct = parseFloat(savingsPctInput);
+      AppState.cvrpSavingsPct = sPct;
+
+      const baselineDist = 1800.0;
+      const scenA_co2 = 1436.40;
+      const porousCarbonMonthly = 507.45;
+
+      // Scenario C dynamic calculations
+      const scenC_dist = baselineDist * (1 - sPct / 100.0);
+      const scenC_fuel = scenC_dist * 0.070;
+      const scenC_co2 = scenC_fuel * 2.29;
+      const scenC_reduction = ((scenA_co2 - scenC_co2) / scenA_co2) * 100.0;
+      const scenC_intensity = scenC_co2 / porousCarbonMonthly;
+
+      const fmt = (num, dec = 2) => num.toFixed(dec).replace('.', ',');
+
+      // Update DOM badges & table cells
+      document.getElementById('cvrp-slider-val-badge').textContent = `${fmt(sPct)}%`;
+      document.getElementById('tbl-c-dist').textContent = `${fmt(scenC_dist)} km`;
+      document.getElementById('tbl-c-fuel').textContent = `${fmt(scenC_fuel)} L Bensin`;
+      document.getElementById('tbl-c-co2').textContent = `${fmt(scenC_co2)} kg CO₂`;
+      document.getElementById('tbl-c-red').textContent = `-${fmt(scenC_reduction)}%`;
+      document.getElementById('tbl-c-intensity').textContent = `${fmt(scenC_intensity)} kg CO₂/kg C`;
+
+      // Update Control Tower top KPI strip
+      document.getElementById('tower-kpi-distance').textContent = `${fmt(scenC_dist)} km/bln`;
+      document.getElementById('tower-kpi-co2').textContent = `${fmt(scenC_reduction)}%`;
+
+      // Update Chart.js Bar Chart if initialized
+      if (logisticsChartInstance) {
+        logisticsChartInstance.data.datasets[0].data = [1436.40, 288.54, +scenC_co2.toFixed(2)];
+        logisticsChartInstance.data.datasets[1].data = [540.00, 126.00, +scenC_fuel.toFixed(2)];
+        logisticsChartInstance.update();
+      }
+    }
+
+    function toggleHolidaySurge() {
+      AppState.holidaySurgeActive = !AppState.holidaySurgeActive;
+
+      const warningBanner = document.getElementById('surge-warning-banner');
+      const btnLabel = document.getElementById('surge-btn-label');
+      const modePill = document.getElementById('schedule-mode-pill');
+
+      if (AppState.holidaySurgeActive) {
+        warningBanner.classList.remove('hidden');
+        btnLabel.textContent = 'Matikan Simulasi Lonjakan Hari Raya (Kembali ke Normal)';
+        modePill.className = 'px-2 py-0.5 rounded bg-crimson text-white font-mono text-[10px] font-bold animate-pulse';
+        modePill.textContent = 'LONJAKAN HARI RAYA (+100% PELANGGAN)';
+
+        document.getElementById('sched-lengkong-rate').textContent = 'Timbulan: 88,88 kg/hari (+100%)';
+        document.getElementById('sched-lengkong-day').textContent = 'Penuh: Hr 11';
+        document.getElementById('sched-coblong-rate').textContent = 'Timbulan: 55,76 kg/hari (+100%)';
+        document.getElementById('sched-coblong-day').textContent = 'Penuh: Hr 12';
+        document.getElementById('sched-bawet-rate').textContent = 'Timbulan: 54,38 kg/hari (+100%)';
+        document.getElementById('sched-bawet-day').textContent = 'Penuh: Hr 13';
+
+        showToast(
+          'Mode Lonjakan Hari Raya Aktif (+100%)',
+          'Berdasarkan data empiris KompasTV (2023), frekuensi cukur menjelang Lebaran naik 2x lipat. Siklus penjemputan dimajukan ke Hari 11–13.'
+        );
+      } else {
+        warningBanner.classList.add('hidden');
+        btnLabel.textContent = 'Aktifkan Simulasi Lonjakan Hari Raya (+100% Pelanggan - KompasTV, 2023)';
+        modePill.className = 'px-2 py-0.5 rounded bg-emerald text-white font-mono text-[10px] font-bold';
+        modePill.textContent = 'Mode Normal (Baseline)';
+
+        document.getElementById('sched-lengkong-rate').textContent = 'Timbulan: 44,44 kg/hari';
+        document.getElementById('sched-lengkong-day').textContent = 'Penuh: Hr 22';
+        document.getElementById('sched-coblong-rate').textContent = 'Timbulan: 27,88 kg/hari';
+        document.getElementById('sched-coblong-day').textContent = 'Penuh: Hr 24';
+        document.getElementById('sched-bawet-rate').textContent = 'Timbulan: 27,19 kg/hari';
+        document.getElementById('sched-bawet-day').textContent = 'Penuh: Hr 25';
+      }
+
+      updateSmartScheduleChart();
+    }
+
+    function triggerBroadcastWA() {
+      showToast(
+        'Broadcast WhatsApp Terkirim ke 721 Mitra!',
+        'Pesan pengingat dini H-2 telah dikirim ke seluruh kapster di Lengkong (322), Coblong (202), dan Bandung Wetan (197).'
+      );
+    }
+
+    function initOrUpdateCharts() {
+      const ctxLogistics = document.getElementById('logisticsComparisonChart');
+      if (ctxLogistics && !logisticsChartInstance) {
+        const sPct = AppState.cvrpSavingsPct;
+        const scenC_dist = 1800 * (1 - sPct / 100);
+        const scenC_fuel = +(scenC_dist * 0.070).toFixed(2);
+        const scenC_co2 = +(scenC_fuel * 2.29).toFixed(2);
+
+        logisticsChartInstance = new Chart(ctxLogistics, {
+          type: 'bar',
+          data: {
+            labels: ['Skenario A (Truk Solar)', 'Skenario B (Roda 3 Statis)', 'Skenario C (HAIR-LOOP CVRP)'],
+            datasets: [
+              {
+                label: 'Emisi CO₂ (kg/bulan)',
+                data: [1436.40, 288.54, scenC_co2],
+                backgroundColor: ['#B91C1C', '#D97706', '#1E5631'],
+                borderRadius: 6
+              },
+              {
+                label: 'Konsumsi BBM (Liter/bulan)',
+                data: [540.00, 126.00, scenC_fuel],
+                backgroundColor: ['#1B365D', '#8C5828', '#2A7544'],
+                borderRadius: 6
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: 'bottom',
+                labels: { font: { family: 'Plus Jakarta Sans', size: 11 } }
+              }
+            },
+            scales: {
+              y: {
+                beginAtZero: true,
+                grid: { color: 'rgba(229, 222, 201, 0.6)' },
+                ticks: { font: { family: 'JetBrains Mono', size: 10 } }
+              },
+              x: {
+                ticks: { font: { family: 'Plus Jakarta Sans', size: 10, weight: 'bold' } }
+              }
+            }
+          }
+        });
+      }
+
+      const ctxSchedule = document.getElementById('smartScheduleChart');
+      if (ctxSchedule && !scheduleChartInstance) {
+        scheduleChartInstance = new Chart(ctxSchedule, {
+          type: 'line',
+          data: getScheduleChartData(AppState.holidaySurgeActive),
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: { mode: 'index', intersect: false },
+            plugins: {
+              legend: {
+                position: 'bottom',
+                labels: { font: { family: 'Plus Jakarta Sans', size: 11 } }
+              }
+            },
+            scales: {
+              y: {
+                min: 0,
+                max: 105,
+                title: { display: true, text: 'Rata-Rata Keterisian Karung (%)', font: { size: 11, weight: 'bold' } },
+                ticks: { font: { family: 'JetBrains Mono', size: 10 } }
+              },
+              x: {
+                ticks: { font: { family: 'JetBrains Mono', size: 10 } }
+              }
+            }
+          }
+        });
+      }
+    }
+
+    function getScheduleChartData(isSurge) {
+      const days = ['Hr 1', 'Hr 4', 'Hr 8', 'Hr 12', 'Hr 16', 'Hr 20', 'Hr 24', 'Hr 28', 'Hr 30'];
+      const mult = isSurge ? 1.95 : 1.0;
+
+      // Baseline curves reach 80% around day 22-25; in surge mode they reach 80% around day 11-13 and reset after pickup
+      const lengkongData = isSurge
+        ? [8, 28, 58, 86, 18, 48, 79, 94, 25]
+        : [4, 15, 29, 44, 59, 73, 86, 96, 100];
+
+      const coblongData = isSurge
+        ? [6, 25, 52, 81, 12, 41, 72, 89, 20]
+        : [3, 13, 26, 40, 54, 67, 80, 91, 96];
+
+      const bawetData = isSurge
+        ? [5, 23, 49, 77, 92, 22, 51, 80, 90]
+        : [3, 12, 24, 38, 51, 64, 77, 88, 93];
+
+      const thresholdLine = days.map(() => 80);
+
+      return {
+        labels: days,
+        datasets: [
+          {
+            label: 'Kec. Lengkong (322 Unit)',
+            data: lengkongData,
+            borderColor: '#1B365D',
+            backgroundColor: 'rgba(27, 54, 93, 0.1)',
+            borderWidth: 2.5,
+            tension: 0.3
+          },
+          {
+            label: 'Kec. Coblong (202 Unit)',
+            data: coblongData,
+            borderColor: '#1E5631',
+            backgroundColor: 'rgba(30, 86, 49, 0.1)',
+            borderWidth: 2.5,
+            tension: 0.3
+          },
+          {
+            label: 'Kec. Bandung Wetan (197 Unit)',
+            data: bawetData,
+            borderColor: '#8C5828',
+            backgroundColor: 'rgba(140, 88, 40, 0.1)',
+            borderWidth: 2.5,
+            tension: 0.3
+          },
+          {
+            label: 'Ambang Picu CVRP (80%)',
+            data: thresholdLine,
+            borderColor: '#B91C1C',
+            borderWidth: 2,
+            borderDash: [6, 4],
+            pointRadius: 0,
+            fill: false
+          }
+        ]
+      };
+    }
+
+    function updateSmartScheduleChart() {
+      if (!scheduleChartInstance) return;
+      scheduleChartInstance.data = getScheduleChartData(AppState.holidaySurgeActive);
+      scheduleChartInstance.update();
+    }
+
+    // -----------------------------------------------------------------------
+    // 6. MODE 3 — MODULE 4: MASS BALANCE SIMULATOR & QC AUDIT TABLE
+    // -----------------------------------------------------------------------
+    function setMassBalanceScale(scale) {
+      AppState.massBalanceScale = scale;
+
+      const btnCluster = document.getElementById('scale-btn-cluster');
+      const btnCity = document.getElementById('scale-btn-city');
+
+      if (scale === 'cluster') {
+        btnCluster.className = 'px-3.5 py-2 rounded-lg text-xs font-extrabold bg-denim text-white shadow transition';
+        btnCity.className = 'px-3.5 py-2 rounded-lg text-xs font-bold text-carbon-light hover:text-denim transition';
+
+        document.getElementById('mb-raw-monthly').textContent = '2.985,00 kg/bln';
+        document.getElementById('mb-raw-daily').textContent = '99,50 kg/hari (721 Barbershop)';
+        document.getElementById('mb-raw-vol').textContent = '9,48 m³/hari';
+        document.getElementById('mb-bale-vol').textContent = '≤ 3,60 m³/hari';
+        document.getElementById('mb-bale-monthly-vol').textContent = '108,04 m³/bln';
+        document.getElementById('mb-carbon-output').textContent = '507,45 kg/bln';
+        document.getElementById('mb-energy-monthly').textContent = '19,49–27,05 kWh';
+        document.getElementById('mb-energy-lifecycle').textContent = '126,69–270,50 MWh';
+        document.getElementById('tower-kpi-carbon').textContent = '507,45 kg/bln';
+      } else {
+        btnCity.className = 'px-3.5 py-2 rounded-lg text-xs font-extrabold bg-denim text-white shadow transition';
+        btnCluster.className = 'px-3.5 py-2 rounded-lg text-xs font-bold text-carbon-light hover:text-denim transition';
+
+        document.getElementById('mb-raw-monthly').textContent = '12.573,00 kg/bln';
+        document.getElementById('mb-raw-daily').textContent = '419,10 kg/hari (3.037 Barbershop)';
+        document.getElementById('mb-raw-vol').textContent = '39,92 m³/hari';
+        document.getElementById('mb-bale-vol').textContent = '≤ 15,17 m³/hari';
+        document.getElementById('mb-bale-monthly-vol').textContent = '455,09 m³/bln';
+        document.getElementById('mb-carbon-output').textContent = '2.137,41 kg/bln';
+        document.getElementById('mb-energy-monthly').textContent = '82,08–113,92 kWh';
+        document.getElementById('mb-energy-lifecycle').textContent = '533,52–1.139,20 MWh';
+        document.getElementById('tower-kpi-carbon').textContent = '2.137,41 kg/bln';
+      }
+    }
+
+    function renderVerificationTable() {
+      const tbody = document.getElementById('verification-table-body');
+      const countEl = document.getElementById('audit-table-count');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+
+      if (countEl) {
+        countEl.textContent = `${VerificationRecords.length} Laporan Dalam Antrean Audit`;
+      }
+
+      VerificationRecords.forEach((rec, idx) => {
+        const isGpsValid = rec.gpsDeltaM <= 50;
+        const isWeightValid = rec.weightDeltaPct <= 30;
+        const isAllValid = isGpsValid && isWeightValid && rec.purity >= 90;
+
+        const tr = document.createElement('tr');
+        tr.className = isAllValid ? 'bg-white hover:bg-ivory/50' : 'bg-crimson-subtle/30';
+
+        tr.innerHTML = `
+          <td class="p-3">
+            <div class="font-bold text-denim">${rec.qr}</div>
+            <div class="font-sans text-[11px] font-semibold text-carbon">${rec.barberName}</div>
+            <div class="text-[10px] text-carbon-light">Kec. ${rec.kecamatan}</div>
+          </td>
+          <td class="p-3">
+            <span class="px-2 py-0.5 rounded font-bold ${rec.purity >= 95 ? 'bg-emerald-subtle text-emerald' : 'bg-amber-subtle text-amber-dark'}">
+              ${rec.purity.toFixed(1).replace('.', ',')}% Murni
+            </span>
+          </td>
+          <td class="p-3">
+            <div class="font-bold ${isGpsValid ? 'text-emerald' : 'text-crimson'}">
+              Δd = ${rec.gpsDeltaM.toFixed(1).replace('.', ',')} m
+            </div>
+            <div class="text-[10px] text-carbon-light">${isGpsValid ? '≤ 50 m (Valid)' : '> 50 m (Anomali)'}</div>
+          </td>
+          <td class="p-3">
+            <div class="text-carbon">Est: <strong>${rec.estKg.toFixed(2).replace('.', ',')} kg</strong> → Aktual: <strong>${rec.actualKg.toFixed(2).replace('.', ',')} kg</strong></div>
+            <div class="text-[10px] ${isWeightValid ? 'text-emerald font-bold' : 'text-crimson font-bold'}">
+              Selisih: ${rec.weightDeltaPct.toFixed(1).replace('.', ',')}% (${isWeightValid ? '≤ 30% Lolos' : '> 30% Flagged'})
+            </div>
+          </td>
+          <td class="p-3">
+            ${
+              rec.approved
+                ? '<span class="px-2 py-1 rounded bg-emerald text-white text-[10px] font-bold">✓ POIN CAIR (' + rec.points + ' Pt)</span>'
+                : isAllValid
+                  ? '<span class="px-2 py-1 rounded bg-emerald-subtle text-emerald border border-emerald/30 text-[10px] font-bold">LOLOS ALGORITMA 1.D</span>'
+                  : '<span class="px-2 py-1 rounded bg-crimson text-white text-[10px] font-bold">TAHAN & AUDIT MANUAL</span>'
+            }
+          </td>
+          <td class="p-3 text-right">
+            ${
+              rec.approved
+                ? '<span class="text-[11px] text-carbon-light">Terverifikasi</span>'
+                : isAllValid
+                  ? `<button onclick="approveAuditRecord(${idx})" class="px-3 py-1.5 rounded-lg bg-denim hover:bg-denim-dark text-white font-sans font-bold text-[11px] shadow-sm transition">Setujui & Cairkan</button>`
+                  : `<button onclick="flagAuditNotice(${idx})" class="px-3 py-1.5 rounded-lg bg-amber hover:bg-amber-dark text-carbon font-sans font-bold text-[11px] transition">Kirim Peringatan</button>`
+            }
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function approveAuditRecord(idx) {
+      const rec = VerificationRecords[idx];
+      if (!rec) return;
+      rec.approved = true;
+      renderVerificationTable();
+      showToast(
+        'Verifikasi Silang Disetujui!',
+        `Poin sebesar +${rec.points} Pt telah dicairkan ke akun ${rec.barberName}.`
+      );
+    }
+
+    function flagAuditNotice(idx) {
+      const rec = VerificationRecords[idx];
+      if (!rec) return;
+      showToast(
+        'Notifikasi Audit Dikirim ke Mitra',
+        `Laporan ${rec.qr} (${rec.barberName}) ditahan karena deviasi GPS ${rec.gpsDeltaM} m (>50 m) dan deviasi bobot ${rec.weightDeltaPct}% (>30%).`
+      );
+    }
+
+    // -----------------------------------------------------------------------
+    // 7. MODALS & TOAST HELPERS
+    // -----------------------------------------------------------------------
+    function openWaModal() {
+      document.getElementById('wa-webhook-modal').classList.remove('hidden');
+    }
+
+    function closeWaModal() {
+      document.getElementById('wa-webhook-modal').classList.add('hidden');
+    }
+
+    function simulateSendWaWebhook() {
+      closeWaModal();
+      submitPickupToControlTower();
+    }
+
+    function openSystemSpecModal() {
+      document.getElementById('system-spec-modal').classList.remove('hidden');
+    }
+
+    function closeSystemSpecModal() {
+      document.getElementById('system-spec-modal').classList.add('hidden');
+    }
+
+    let toastTimer = null;
+    function showToast(title, msg) {
+      const toast = document.getElementById('global-toast');
+      const tTitle = document.getElementById('global-toast-title');
+      const tMsg = document.getElementById('global-toast-msg');
+      if (!toast || !tTitle || !tMsg) return;
+
+      tTitle.textContent = title;
+      tMsg.textContent = msg;
+      toast.classList.remove('hidden');
+
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        hideToast();
+      }, 5200);
+    }
+
+    function hideToast() {
+      const toast = document.getElementById('global-toast');
+      if (toast) toast.classList.add('hidden');
+    }
+
+    // -----------------------------------------------------------------------
+    // 8. INITIALIZATION ON DOM READY
+    // -----------------------------------------------------------------------
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+      renderVerificationTable();
+      renderGisNodeList('ALL');
+      updateLogisticsCalculator(16.15);
+    });
+  </script>
+</body>
+</html>
